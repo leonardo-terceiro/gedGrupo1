@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -18,22 +17,18 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Participacao")
-public class ParticipacaoEntity {
+@Table(name = "Template")
+public class TemplateEntity {
 
 	@Id
-	@GeneratedValue(strategy = SEQUENCE, generator = "participacaoId")
-	@SequenceGenerator(name = "participacaoId", allocationSize = 1, initialValue = 1)
+	@GeneratedValue(strategy = SEQUENCE, generator = "templateId")
+	@SequenceGenerator(name = "templateId", allocationSize = 1, initialValue = 1)
 	private Integer id;
 	
-	@Column(name = "pessoaId")
-	private Integer pessoaId;
+	@Column(name = "descricao")
+	private String descricao;
 	
-	@Column(name = "horas_participou")
-	private Double horasParticipou;
-	
-	@Lob
-	@Column(name = "arquivo")
-	private String arquivo;
+	@Column(name = "texto")
+	private String texto;
 	
 }

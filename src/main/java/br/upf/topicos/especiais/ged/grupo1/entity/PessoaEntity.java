@@ -15,12 +15,14 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Pessoa")
 public class PessoaEntity implements Serializable {
 
