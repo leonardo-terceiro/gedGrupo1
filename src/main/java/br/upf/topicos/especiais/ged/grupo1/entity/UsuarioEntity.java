@@ -1,7 +1,11 @@
 package br.upf.topicos.especiais.ged.grupo1.entity;
 
+import static javax.persistence.TemporalType.TIMESTAMP;
+
 import java.io.Serializable;
 import java.lang.Integer;
+import java.util.Date;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -38,6 +42,10 @@ public class UsuarioEntity implements Serializable {
 	@Length(max = 40, min = 6, message = "A senha deve ter entre {min} e {max} caracteres!")
 	@Column(length = 40, nullable = false)
 	private String senha;
+	
+	@Column(name = "data_inativo")
+	@Temporal(TIMESTAMP)
+	private Date dataInativo;
 
 	public UsuarioEntity(Integer id,
 			@NotEmpty(message = "O nome deve ser informado!") @Length(max = 60, min = 3, message = "O nome deve ter entre 3 e 60 caracteres!") String nome,

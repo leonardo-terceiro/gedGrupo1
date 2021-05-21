@@ -25,22 +25,15 @@ public class JpaUtil {
 
 	public EntityManager getEntityManager() {
 		if (factory == null) {
-			factory = Persistence.createEntityManagerFactory("appged");
+			factory = Persistence.createEntityManagerFactory("gedGrupo1");
 		}
 		return factory.createEntityManager();
 	}
 
 	private static class JpaUtilInstance {
 		public static final JpaUtil INSTANCE = new JpaUtil();
-		
 	}
 
-	/**
-	 * Método responsável por obter uma conexão JDBC a partir de uma EntityManager.
-	 * Funciona com Hibernate 5.2 ou superior.
-	 * @return conexão JDBC com o banco de dados
-	 * @throws SQLException
-	 */
     public Connection getEntityManagerJDBCConnection() throws SQLException { 
         EntityManager em = getEntityManager();
         @SuppressWarnings("resource")
@@ -50,16 +43,5 @@ public class JpaUtil {
         em.close();
         return conexao; 
     }
-    
-    /* versões anteriores
-	public Connection getEntityManagerJDBCConnection() throws SQLException {
-		EntityManager em = getEntityManager();
-		HibernateEntityManager hem = (HibernateEntityManager) em;
-		SessionImplementor sim = (SessionImplementor) hem.getSession();
-		Connection conexao = sim.connection();
-		em.close();
-		return conexao;
-	}
-	*/
 
 }
