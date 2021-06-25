@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Login</title>
+	<style>
+		.no-border {
+			border-style: hidden !important;
+			text-align: center !important;
+		}
+		body .ui-panel .ui-panel-content{
+		   border-top: 1px solid #c8c8c8;
+		}
+	</style>
+</h:head>
+<h:body style="margin: 0px;">
+
+	<p:panel style="width: 400px; margin: auto; margin-top: 15vh;">
+
+		<h:form>
+			<p:focus for="email" />
+			<p:growl></p:growl>
+
+			<p:panelGrid columns="1" columnClasses="no-border, no-border" style="margin-left: 15px;">
+			
+				<img src="../resources/images/login.png" alt="Login" style="width: 310px; height: 163px;" /> 
+
+				<p:outputLabel value="Email" for="email" />
+				<p:inputText id="email" size="30" maxlength="100"
+					value="#{loginControle.email}" />
+
+				<p:outputLabel value="Senha" for="senha" />
+				<p:password id="senha" size="15" maxlength="40"
+					value="#{loginControle.senha}" />
+
+				
+				<p:commandButton value="Login" action="#{loginControle.entrar}"	ajax="false" />
+				<br />
+
+			</p:panelGrid>
+
+		</h:form>
+
+	</p:panel>
+
+
+</h:body>
+</html>

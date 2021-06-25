@@ -2,6 +2,15 @@
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
 	<persistence-unit name="gedGrupo1" transaction-type="RESOURCE_LOCAL">
 		<class>br.upf.topicos.especiais.ged.grupo1.entity.PessoaEntity</class>
+		<class>br.upf.topicos.especiais.ged.grupo1.entity.AssinaEntity</class>
+		<class>br.upf.topicos.especiais.ged.grupo1.entity.EventoEntity</class>
+		<class>br.upf.topicos.especiais.ged.grupo1.entity.ModalidadeEntity</class>
+		<class>br.upf.topicos.especiais.ged.grupo1.entity.ModalidadeSubEventoEntity</class>
+		<class>br.upf.topicos.especiais.ged.grupo1.entity.ParticipacaoEntity</class>
+		<class>br.upf.topicos.especiais.ged.grupo1.entity.SubEventoEntity</class>
+		<class>br.upf.topicos.especiais.ged.grupo1.entity.TemplateEntity</class>
+		<class>br.upf.topicos.especiais.ged.grupo1.entity.TipoEventoEntity</class>
+		<class>br.upf.topicos.especiais.ged.grupo1.entity.UsuarioEntity</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/gedGrupo1"/>
 			<property name="javax.persistence.jdbc.user" value="postgres"/>

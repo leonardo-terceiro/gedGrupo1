@@ -2,10 +2,15 @@ package br.upf.topicos.especiais.ged.grupo1.entity;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
-import javax.persistence.Column;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -25,15 +30,18 @@ public class ModalidadeSubEventoEntity {
 	@SequenceGenerator(name = "modalidadeId", allocationSize = 1, initialValue = 1)
 	private Integer id;
 	
-	@Column(name = "participacao_id")
-	private Integer participacaoId;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "modalidadeSubEvento")
+	private List<ParticipacaoEntity> participacoes;
 	
-	@Column(name = "template_id")
-	private Integer templateId;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "template_id")
+	private TemplateEntity template;
 	
-	@Column(name = "modalidade_id")
-	private Integer modalidadeId;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "modalidade_id")
+	private ModalidadeEntity modalidade;
 	
-	@Column(name = "sub_evento_id")
-	private Integer subEventoId;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "sub_evento_id")
+	private SubEventoEntity subEvento;
 }

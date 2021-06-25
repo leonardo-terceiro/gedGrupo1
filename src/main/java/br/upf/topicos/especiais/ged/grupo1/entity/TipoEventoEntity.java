@@ -3,11 +3,14 @@ package br.upf.topicos.especiais.ged.grupo1.entity;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -37,4 +40,6 @@ public class TipoEventoEntity implements Serializable{
 	@NotBlank(message = "A descrição deve ser informada!")
 	private String descricao;
 	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "tipoEvento")
+	private List<SubEventoEntity> subEventos;
 }

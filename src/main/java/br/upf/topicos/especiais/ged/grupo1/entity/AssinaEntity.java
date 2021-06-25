@@ -12,6 +12,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,12 +31,16 @@ public class AssinaEntity {
 	@SequenceGenerator(name = "assinaId", allocationSize = 1, initialValue = 1)
 	private Integer id;
 	
+	@NotEmpty(message = "O nome deve ser informado!")
+	@Size(max = 120, message = "O nome deve conter no maximo {max} caracteres!")
 	@Column(name = "nome")
 	private String nome;
 	
+	@NotEmpty(message = "a funcao deve ser informada!")
 	@Column(name = "funcao")
 	private String funcao;
 	
+	@NotEmpty(message = "a imagem deve ser informada!")
 	@Column(name = "imagem")
 	private String imagem;
 	
