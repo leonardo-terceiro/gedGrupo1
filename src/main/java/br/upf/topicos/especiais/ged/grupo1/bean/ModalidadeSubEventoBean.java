@@ -14,23 +14,23 @@ import lombok.Data;
 @Data
 @Named
 @ViewScoped
-public class ModalidadeSubEventoEntity implements Serializable{
+public class ModalidadeSubEventoBean implements Serializable{
 	
 	private static final long serialVersionUID = -138402691449651120L;
 	
-	private ModalidadeSubEventoEntity selecionado;
-	private List<ModalidadeSubEventoEntity> lista;
+	private ModalidadeSubEventoBean selecionado;
+	private List<ModalidadeSubEventoBean> lista;
 	private Boolean editando;
-	private GenericDao<ModalidadeSubEventoEntity> dao = new GenericDao<ModalidadeSubEventoEntity>();
+	private GenericDao<ModalidadeSubEventoBean> dao = new GenericDao<ModalidadeSubEventoBean>();
 	
-	public ModalidadeSubEventoEntity() {
+	public ModalidadeSubEventoBean() {
 		super();
 		setEditando(false);
 		carregarLista();
 	}
 	
 	public void incluir() {
-		selecionado = new ModalidadeSubEventoEntity();
+		selecionado = new ModalidadeSubEventoBean();
 		setEditando(true);
 	}
 

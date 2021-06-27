@@ -72,7 +72,7 @@ public class TipoEventoBean implements Serializable {
 	
 	public void carregarLista() {
 		try {
-			lista = dao.createQuery("from TipoEvento order by id");
+			lista = dao.createQuery("from TipoEventoEntity order by id");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JsfUtil.addErrorMessage(TrataException.getMensagem(e)); 

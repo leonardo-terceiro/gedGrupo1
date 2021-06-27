@@ -1,0 +1,94 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<h:outputStylesheet library="webjars"
+		name="font-awsome/5.12.0/css/all.min.jsf.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awsome/5.12.0/css/v4.shims.min.jsf.css" />
+</h:head>
+
+<h:body>
+
+	<p:panel id="consultar" visible="#{!eventoBean.editando}" >
+
+		<h:form>
+
+			<p:commandButton value="Incluir" ajax="true"
+				update="consultar editar" icon="fa fa-plus" 
+				action="#{eventoBean.incluir}"></p:commandButton>
+
+			<p:commandButton value="Alterar" ajax="true"
+				update="consultar editar" icon="fa fa-edit" disabled="#{eventoBean.selecionado == null}"
+				action="#{eventoBean.alterar}"></p:commandButton>
+
+			<p:commandButton value="Excluir" ajax="true"
+				update="consultar editar" icon="fa fa-remove" disabled="#{eventoBean.selecionado == null}"
+				action="#{eventoBean.excluir}">
+				<p:confirm header="Confirmation"
+					message="Voce tem certeza que deseja excluir?"
+					icon="pi pi-exclamation-triangle" />
+			</p:commandButton>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+				responsive="true" width="350">
+				<p:commandButton value="Nao" type="button"
+					styleClass="ui-confirmdialog-no ui-button-flat" />
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" />
+			</p:confirmDialog>
+
+			<p:growl id="msg"></p:growl>
+
+			<p:dataTable var="e" value="#{eventoBean.lista}" rows="10"
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate=" Mostrando de {startRecord} ate {endRecord} de {totalRecords}"
+				rowsPerPageTemplate="10,30,60" selectionMode="single"
+				selection="#{eventoBean.selecionado}" rowKey="#{e.id}">
+
+				<p:ajax event="rowSelect" update="consultar editar" />
+
+				<p:column headerText="Id" filterBy="#{e.id}" sortOrder="asc"
+					filterMatchMode="exact" sortBy="#{e.id}">
+					<h:outputText value="#{e.id}" />
+				</p:column>
+
+				<p:column headerText="Descricao" filterBy="#{e.descricao}"
+					filterMatchMode="contains" sortBy="#{e.descricao}">
+					<h:outputText value="#{e.descricao}" />
+				</p:column>
+
+
+			</p:dataTable>
+		</h:form>
+	</p:panel>
+
+	<p:panel id="editar" visible="#{eventoBean.editando}" >
+
+		<h:form>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Id"></p:outputLabel>
+				<p:inputNumber decimalPlaces="0" disabled="true" placeholder="Auto"
+					value="#{eventoBean.selecionado.id}"></p:inputNumber>
+
+				<p:outputLabel value="Descricao"></p:outputLabel>
+				<p:inputText value="#{eventoBean.selecionado.descricao}"></p:inputText>
+
+
+				<p:commandButton value="Salvar" ajax="true" icon="fa fa-save"
+					update="consultar editar" action="#{eventoBean.salvar}"></p:commandButton>
+
+				<p:commandButton value="Cancelar" ajax="true" icon="fa fa-undo"
+					immediates="true" update="consultar editar"
+					action="#{eventoBean.cancelar}"></p:commandButton>
+
+
+			</p:panelGrid>
+		</h:form>
+	</p:panel>
+</h:body>
+</html>

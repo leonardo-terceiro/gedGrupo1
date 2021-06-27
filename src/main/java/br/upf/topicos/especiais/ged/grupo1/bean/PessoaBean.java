@@ -71,7 +71,7 @@ public class PessoaBean implements Serializable{
 	
 	public void carregarLista() {
 		try {
-			lista = dao.createQuery("from Pessoa order by id");
+			lista = dao.createQuery("from PessoaEntity order by id");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JsfUtil.addErrorMessage(TrataException.getMensagem(e)); 

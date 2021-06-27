@@ -14,6 +14,7 @@ import br.upf.topicos.especiais.ged.grupo1.entity.UsuarioEntity;
 import br.upf.topicos.especiais.ged.grupo1.utils.JpaUtil;
 import lombok.Data;
 
+
 @Data
 @Named
 @SessionScoped
@@ -25,12 +26,12 @@ public class LoginControle implements Serializable{
 	private String senha = "";
 
 	private UsuarioEntity usuarioLogado;
-	
+
 	@SuppressWarnings("unchecked")
 	public String entrar() { 
 		usuarioLogado = null;
 		EntityManager em = JpaUtil.getInstance().getEntityManager();
-		String oql = "from Usuario where email = :email and senha = :senha";
+		String oql = "from UsuarioEntity where email = :email and senha = :senha";
 		Query qry = em.createQuery(oql);
 		qry.setParameter("email", this.email);
 		qry.setParameter("senha", this.senha);
@@ -38,6 +39,7 @@ public class LoginControle implements Serializable{
 		em.close();
 		if (ret.size() > 0) {
 			usuarioLogado = ret.get(0);
+			System.out.println("entrar() -> Login feito com sucesso user <" + usuarioLogado.getNome() + ">");
 			return "/faces/Privado/Home.xhtml?faces-redirect=true";
 			
 		} else {
@@ -49,7 +51,7 @@ public class LoginControle implements Serializable{
 	
 	public String sair() {
 		usuarioLogado = null;
-		return "/faces/LoginForm.xhtml?faces-redirect=true"; // Vair para a tela de login
+		return "/faces/LoginForm.xhtml?faces-redirect=true";
 	}	
 
 }
