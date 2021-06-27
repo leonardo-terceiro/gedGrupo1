@@ -1,0 +1,144 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/all.min-jsf.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+
+<style>
+ .no-border { 
+ 	border-style: hidden !important; 
+ 	text-align: center !important; 
+ } 
+</style> 
+
+</h:head>
+
+<h:body>
+
+	<p:panel id="consultar" visible="#{!assinaBean.editando}">
+		<h:form>
+
+			<p:commandButton value="Incluir" ajax="true"
+				update="consultar editar" icon="fa fa-plus"
+				action="#{assinaBean.incluir}"></p:commandButton>
+
+			<p:commandButton value="Alterar" ajax="true"
+				update="consultar editar" icon="fa fa-edit"
+				disabled="#{assinaBean.selecionado == null}"
+				action="#{assinaBean.alterar}"></p:commandButton>
+
+			<p:commandButton value="Excluir" ajax="true"
+				update="consultar editar" icon="fa fa-remove"
+				disabled="#{assinaBean.selecionado == null}"
+				action="#{assinaBean.excluir}">
+				<p:confirm header="Confirma��o" message="Confirma a exclus�o?"
+					icon="pi pi-exclamation-triangle" />
+			</p:commandButton>
+			
+			<p:commandButton value="Ativar" ajax="true"
+				update="consultar editar" icon="fa fa-edit"
+				disabled="#{assinaBean.selecionado == null || assinaBean.selecionado.dataInativo == null}"
+				action="#{assinaBean.ativar}">
+				<p:confirm header="Confirma��o" message="Confirma a ativação?"
+					icon="pi pi-exclamation-triangle" />
+			</p:commandButton>
+
+			<p:commandButton value="Inativar" ajax="true"
+				update="consultar editar" icon="fa fa-remove"
+				disabled="#{assinaBean.selecionado == null || assinaBean.selecionado.dataInativo != null}"
+				action="#{assinaBean.inativar}">
+				<p:confirm header="Confirma��o" message="Confirma a inativação?"
+					icon="pi pi-exclamation-triangle" />
+			</p:commandButton>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+				responsive="true" width="350">
+				<p:commandButton value="N�o" type="button"
+					styleClass="ui-confirmdialog-no ui-button-flat" />
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" />
+			</p:confirmDialog>
+
+			<p:dataTable var="a" value="#{assinaBean.lista}" rows="10"
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="Mostrando de {startRecord} até {endRecord} de {totalRecords}"
+				rowsPerPageTemplate="10,30,60" selectionMode="single"
+				selection="#{assinaBean.selecionado}" rowKey="#{a.id}"
+				emptyMessage="Nenhum registro encontrado.">
+
+				<p:ajax event="rowSelect" update="consultar editar" />
+
+
+				<p:column headerText="Id" sortBy="#{a.id}" sortOrder="asc"
+					filterBy="#{a.id}" filterMatchMode="exact">
+					<h:outputText value="#{a.id}" />
+				</p:column>
+
+				<p:column headerText="Nome" sortBy="#{a.nome}" filterBy="#{a.nome}"
+					filterMatchMode="contains">
+					<h:outputText value="#{a.nome}" />
+				</p:column>
+
+				<p:column headerText="Função" sortBy="#{a.funcao}"
+					filterBy="#{a.funcao}" filterMatchMode="exact">
+					<h:outputText value="#{a.funcao}">
+
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Imagem" sortBy="#{a.imagem}"
+					filterBy="#{a.imagem}" filterMatchMode="contains">
+					<h:outputText value="#{a.imagem}" />
+				</p:column>
+
+				<p:column headerText="Data de Inativação" sortBy="#{a.dataInativo}"
+					filterBy="#{a.dataInativo}" filterMatchMode="exact">
+					<h:outputText value="#{a.dataInativo}" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+	</p:panel>
+
+
+	<p:panel id="editar" visible="#{assinaBean.editando}">
+
+		<h:form>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Id"></p:outputLabel>
+				<p:inputNumber decimalPlaces="0" disabled="true" placeholder="Auto"
+					value="#{assinaBean.selecionado.id}"></p:inputNumber>
+
+				<p:outputLabel value="Nome"></p:outputLabel>
+				<p:inputText value="#{assinaBean.selecionado.nome}"></p:inputText>
+
+				<p:outputLabel value="Função"></p:outputLabel>
+				<p:inputText value="#{assinaBean.selecionado.funcao}"></p:inputText>
+
+				<p:outputLabel value="Imagem"></p:outputLabel>
+				<p:inputText value="#{assinaBean.selecionado.imagem}"></p:inputText>
+
+				<p:outputLabel value="Data Inativo"></p:outputLabel>
+				<p:inputText disabled="true" placeholder="Auto" value="#{assinaBean.selecionado.dataInativo}"></p:inputText>
+
+				<p:commandButton value="Salvar" ajax="true" icon="fa fa-save"
+					update="consultar editar" action="#{assinaBean.salvar}"></p:commandButton>
+
+				<p:commandButton value="Cancelar" ajax="true" icon="fa fa-undo"
+					immediates="true" update="consultar editar"
+					action="#{assinaBean.cancelar}"></p:commandButton>
+
+			</p:panelGrid>
+		</h:form>
+	</p:panel>
+
+
+</h:body>
+</html>

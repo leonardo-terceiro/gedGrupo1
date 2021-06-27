@@ -1,6 +1,7 @@
 package br.upf.topicos.especiais.ged.grupo1.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
@@ -45,6 +46,16 @@ public class AssinaBean implements Serializable{
 		setEditando(false);
 	}
 	
+	public void ativar() {
+		selecionado.setDataInativo(null);
+		salvar();
+	}
+	
+	public void inativar() {
+		selecionado.setDataInativo(new Date());
+		salvar();
+	}
+	
 	public void salvar() {
 		try {
 			setSelecionado( dao.merge(selecionado) );
@@ -71,7 +82,7 @@ public class AssinaBean implements Serializable{
 	
 	public void carregarLista() {
 		try {
-			lista = dao.createQuery("from Assina order by id");
+			lista = dao.createQuery("from AssinaEntity order by id");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JsfUtil.addErrorMessage(TrataException.getMensagem(e)); 

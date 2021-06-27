@@ -55,6 +55,9 @@
 							<p:menuitem value="Pessoa Popup" icon="pi pi-fw pi-trash" 
 							   actionListener="#{homeBean.abrirPopup('PessoaForm.xhtml', 600, 600, true)}"/>
 
+							<p:menuitem value="Assinatura Popup" icon="pi pi-fw pi-trash" 
+							   actionListener="#{homeBean.abrirPopup('AssinaForm.xhtml', 600, 600, true)}"/>
+
 							<p:menuitem value="Eventos popup" icon="pi pi-fw pi-external-link" 
 								actionListener="#{homeBean.abrirPopup('TipoEvento.xhtml', 600, 800, false)}"/>
 
@@ -120,6 +123,7 @@
 							icon="pi pi-fw pi-bookmark" />
 				            <p:submenu label="Cadastros">
 								<p:menuitem value="Pessoa" url="PessoaForm.xhtml" target="centro" icon="pi pi-fw pi-trash" />
+								<p:menuitem value="Assina" url="AssinaForm.xhtml" target="centro" icon="pi pi-fw pi-trash" />
 								<p:menuitem value="Eventos" url="TipoEvento.xhtml" target="centro" icon="pi pi-fw pi-external-link" />
 	
 	
