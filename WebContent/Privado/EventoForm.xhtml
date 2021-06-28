@@ -1,0 +1,167 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/all.min-jsf.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+
+<script type="text/javascript">
+    PrimeFaces.locales ['pt_BR'] = {
+        closeText: 'Fechar',
+        prevText: 'Voltar',
+        nextText: 'Avançar',
+        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        monthNamesShort: ['Jan', 'Feb', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+        dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
+        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+        dayNamesMin: ['D', 'S', 'T', 'Q ', 'Q', 'S ', 'S'],
+        weekHeader: 'Semana',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Horario',
+        timeText: 'Horario',
+        hourText: 'Hora',
+        minuteText: 'Minuto',
+        secondText: 'Segundo',
+        currentText: 'Data atual',
+        ampm: false,
+        month: 'Mês',
+        week: 'Semana',
+        day: 'Dia',
+        allDayText: 'Dia inteiro'
+    };
+</script>
+
+<style>
+ .no-border { 
+ 	border-style: hidden !important; 
+ 	text-align: center !important; 
+ } 
+</style> 
+
+</h:head>
+
+<h:body>
+
+	<p:panel id="consultar" visible="#{!eventoBean.editando}">
+		<h:form>
+
+			<p:commandButton value="Incluir" ajax="true"
+				update="consultar editar" icon="fa fa-plus"
+				action="#{eventoBean.incluir}"></p:commandButton>
+
+			<p:commandButton value="Alterar" ajax="true"
+				update="consultar editar" icon="fa fa-edit"
+				disabled="#{eventoBean.selecionado == null}"
+				action="#{eventoBean.alterar}"></p:commandButton>
+
+			<p:commandButton value="Excluir" ajax="true"
+				update="consultar editar" icon="fa fa-remove"
+				disabled="#{eventoBean.selecionado == null}"
+				action="#{eventoBean.excluir}">
+				<p:confirm header="Confirma��o" message="Confirma a exclus�o?"
+					icon="pi pi-exclamation-triangle" />
+			</p:commandButton>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+				responsive="true" width="350">
+				<p:commandButton value="N�o" type="button"
+					styleClass="ui-confirmdialog-no ui-button-flat" />
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" />
+			</p:confirmDialog>
+
+			<p:dataTable var="e" value="#{eventoBean.lista}" rows="10"
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="Mostrando de {startRecord} até {endRecord} de {totalRecords}"
+				rowsPerPageTemplate="10,30,60" selectionMode="single"
+				selection="#{eventoBean.selecionado}" rowKey="#{e.id}"
+				emptyMessage="Nenhum registro encontrado.">
+
+				<p:ajax event="rowSelect" update="consultar editar" />
+
+
+				<p:column headerText="Id" sortBy="#{e.id}" sortOrder="asc"
+					filterBy="#{e.id}" filterMatchMode="exact">
+					<h:outputText value="#{e.id}" />
+				</p:column>
+
+				<p:column headerText="Titulo" sortBy="#{e.titulo}" filterBy="#{e.titulo}"
+					filterMatchMode="contains">
+					<h:outputText value="#{e.titulo}" />
+				</p:column>
+				
+				<p:column headerText="Descricao" sortBy="#{e.descricao}" filterBy="#{e.descricao}"
+					filterMatchMode="contains">
+					<h:outputText value="#{e.descricao}" />
+				</p:column>
+				
+				<p:column headerText="Data de Inicio" sortBy="#{e.dataInicio}" filterBy="#{e.dataInicio}">
+            		<h:outputText value="#{e.dataInicio}" > 
+            			<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+            		</h:outputText>
+            	</p:column>
+			
+				<p:column headerText="Data de Termino" sortBy="#{e.dataTermino}" filterBy="#{e.dataTermino}">
+            		<h:outputText value="#{e.dataTermino}" > 
+            			<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+            		</h:outputText>
+            	</p:column>
+            	
+            	<p:column headerText="Total de Horas" sortBy="#{e.totalHoras}" filterBy="#{e.totalHoras}"
+					filterMatchMode="exact">
+					<h:outputText value="#{e.totalHoras}">
+						<f:convertNumber integerOnly="true"></f:convertNumber>
+					</h:outputText>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+	</p:panel>
+
+
+	<p:panel id="editar" visible="#{eventoBean.editando}">
+
+		<h:form>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Id"></p:outputLabel>
+				<p:inputNumber decimalPlaces="0" disabled="true" placeholder="Auto"
+					value="#{eventoBean.selecionado.id}"></p:inputNumber>
+
+				<p:outputLabel value="Titulo"></p:outputLabel>
+				<p:inputText value="#{eventoBean.selecionado.titulo}"></p:inputText>
+
+				<p:outputLabel value="Descricao"></p:outputLabel>
+				<p:inputText value="#{eventoBean.selecionado.descricao}"></p:inputText>
+
+				<p:outputLabel value="Data de Inicio"></p:outputLabel>
+				<p:calendar id="buttonDataInicio" value="#{eventoBean.selecionado.dataInicio}" showOn="button"/>
+
+				<p:outputLabel value="Data de Termino"></p:outputLabel>
+				<p:calendar id="buttonDataTermino" value="#{eventoBean.selecionado.dataTermino}" showOn="button" mindate="#{eventoBean.selecionado.dataInicio}" />
+				
+				<p:outputLabel value="Total de Horas"></p:outputLabel>
+				<p:inputNumber decimalPlaces="0"  value="#{eventoBean.selecionado.totalHoras}"></p:inputNumber>
+
+				<p:commandButton value="Salvar" ajax="true" icon="fa fa-save"
+					update="consultar editar" action="#{eventoBean.salvar}"></p:commandButton>
+
+				<p:commandButton value="Cancelar" ajax="true" icon="fa fa-undo"
+					immediates="true" update="consultar editar"
+					action="#{eventoBean.cancelar}"></p:commandButton>
+
+			</p:panelGrid>
+		</h:form>
+	</p:panel>
+
+
+</h:body>
+</html>

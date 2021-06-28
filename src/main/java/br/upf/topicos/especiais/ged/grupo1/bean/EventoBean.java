@@ -71,7 +71,7 @@ public class EventoBean implements Serializable{
 	
 	public void carregarLista() {
 		try {
-			lista = dao.createQuery("from Evento order by id");
+			lista = dao.createQuery("from EventoEntity order by id");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JsfUtil.addErrorMessage(TrataException.getMensagem(e)); 

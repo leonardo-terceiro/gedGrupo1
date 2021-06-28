@@ -99,7 +99,9 @@
 
 				<p:column headerText="Data de Inativação" sortBy="#{a.dataInativo}"
 					filterBy="#{a.dataInativo}" filterMatchMode="exact">
-					<h:outputText value="#{a.dataInativo}" />
+					<h:outputText value="#{a.dataInativo}" > 
+            			<f:convertDateTime pattern="dd/MM/yyyy HH:mm"></f:convertDateTime>
+            		</h:outputText>
 				</p:column>
 
 			</p:dataTable>
@@ -124,7 +126,7 @@
 
 				<p:outputLabel value="Imagem"></p:outputLabel>
 				<p:inputText value="#{assinaBean.selecionado.imagem}"></p:inputText>
-
+				
 				<p:outputLabel value="Data Inativo"></p:outputLabel>
 				<p:inputText disabled="true" placeholder="Auto" value="#{assinaBean.selecionado.dataInativo}"></p:inputText>
 
