@@ -31,7 +31,9 @@ public class ModalidadeBean implements Serializable{
 	}
 	
 	public void incluir() {
+		System.out.println("Incluindo");
 		selecionado = new ModalidadeEntity();
+		System.out.println("Selectionado 1 -> " + selecionado);
 		setEditando(true);
 	}
 
@@ -47,6 +49,7 @@ public class ModalidadeBean implements Serializable{
 	
 	public void salvar() {
 		try {
+			System.out.println("selecionado -> " + selecionado);
 			setSelecionado( dao.merge(selecionado) );
 			JsfUtil.addSuccessMessage("Salvo com sucesso!");
 			carregarLista();
@@ -71,7 +74,7 @@ public class ModalidadeBean implements Serializable{
 	
 	public void carregarLista() {
 		try {
-			lista = dao.createQuery("from Modalidade order by id");
+			lista = dao.createQuery("from ModalidadeEntity order by id");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JsfUtil.addErrorMessage(TrataException.getMensagem(e)); 

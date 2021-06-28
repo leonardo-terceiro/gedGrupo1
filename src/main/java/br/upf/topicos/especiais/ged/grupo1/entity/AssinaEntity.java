@@ -3,11 +3,15 @@ package br.upf.topicos.especiais.ged.grupo1.entity;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -47,4 +51,7 @@ public class AssinaEntity {
 	@Column(name = "dataInativo")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInativo;
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "assina", fetch = FetchType.EAGER)
+	private List<SubEventoEntity> subEventos;
 }

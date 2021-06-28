@@ -77,6 +77,6 @@ public class SubEventoEntity {
 	@JoinColumn(name = "tipo_evento_id")
 	private TipoEventoEntity tipoEvento;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "subEvento")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "subEvento", fetch = FetchType.EAGER)
 	private List<ModalidadeSubEventoEntity> modalidades;
 }

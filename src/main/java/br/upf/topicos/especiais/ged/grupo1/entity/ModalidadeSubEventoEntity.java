@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -30,7 +31,7 @@ public class ModalidadeSubEventoEntity {
 	@SequenceGenerator(name = "modalidadeId", allocationSize = 1, initialValue = 1)
 	private Integer id;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "modalidadeSubEvento")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "modalidadeSubEvento", fetch = FetchType.EAGER)
 	private List<ParticipacaoEntity> participacoes;
 	
 	@ManyToOne(optional = false)

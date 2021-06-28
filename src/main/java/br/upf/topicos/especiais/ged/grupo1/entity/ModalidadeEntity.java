@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Modalidade_sub_evento")
+@Table(name = "Modalidade")
 public class ModalidadeEntity {
 
 	@Id
@@ -36,7 +37,7 @@ public class ModalidadeEntity {
 	@Column(name = "descricao")
 	private String descricao;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "modalidade")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "modalidade", fetch = FetchType.EAGER)
 	private List<ModalidadeSubEventoEntity> modalidades;
 	
 }
