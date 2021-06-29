@@ -2,6 +2,7 @@ package br.upf.topicos.especiais.ged.grupo1.entity;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,7 +26,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Modalidade")
-public class ModalidadeEntity {
+public class ModalidadeEntity implements Serializable{
+
+	private static final long serialVersionUID = 8899535096280622017L;
 
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "modalidadeId")
@@ -39,5 +42,10 @@ public class ModalidadeEntity {
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "modalidade", fetch = FetchType.EAGER)
 	private List<ModalidadeSubEventoEntity> modalidades;
+
+	@Override
+	public String toString() {
+		return "ModalidadeEntity [id=" + id + ", descricao=" + descricao + "]";
+	}
 	
 }

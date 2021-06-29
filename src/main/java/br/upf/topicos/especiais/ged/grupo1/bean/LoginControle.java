@@ -30,6 +30,7 @@ public class LoginControle implements Serializable{
 	@SuppressWarnings("unchecked")
 	public String entrar() { 
 		usuarioLogado = null;
+		JpaUtil.getInstance();
 		EntityManager em = JpaUtil.getInstance().getEntityManager();
 		String oql = "from UsuarioEntity where email = :email and senha = :senha";
 		Query qry = em.createQuery(oql);

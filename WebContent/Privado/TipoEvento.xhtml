@@ -13,21 +13,21 @@
 
 <h:body>
 
-	<p:panel id="consultar" visible="#{!eventoBean.editando}" >
+	<p:panel id="consultar" visible="#{!tipoEventoBean.editando}" >
 
 		<h:form>
 
 			<p:commandButton value="Incluir" ajax="true"
 				update="consultar editar" icon="fa fa-plus" 
-				action="#{eventoBean.incluir}"></p:commandButton>
+				action="#{tipoEventoBean.incluir}"></p:commandButton>
 
 			<p:commandButton value="Alterar" ajax="true"
-				update="consultar editar" icon="fa fa-edit" disabled="#{eventoBean.selecionado == null}"
-				action="#{eventoBean.alterar}"></p:commandButton>
+				update="consultar editar" icon="fa fa-edit" disabled="#{tipoEventoBean.selecionado == null}"
+				action="#{tipoEventoBean.alterar}"></p:commandButton>
 
 			<p:commandButton value="Excluir" ajax="true"
-				update="consultar editar" icon="fa fa-remove" disabled="#{eventoBean.selecionado == null}"
-				action="#{eventoBean.excluir}">
+				update="consultar editar" icon="fa fa-remove" disabled="#{tipoEventoBean.selecionado == null}"
+				action="#{tipoEventoBean.excluir}">
 				<p:confirm header="Confirmation"
 					message="Voce tem certeza que deseja excluir?"
 					icon="pi pi-exclamation-triangle" />
@@ -43,23 +43,23 @@
 
 			<p:growl id="msg"></p:growl>
 
-			<p:dataTable var="e" value="#{eventoBean.lista}" rows="10"
+			<p:dataTable var="t" value="#{tipoEventoBean.lista}" rows="10"
 				paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				currentPageReportTemplate=" Mostrando de {startRecord} ate {endRecord} de {totalRecords}"
 				rowsPerPageTemplate="10,30,60" selectionMode="single"
-				selection="#{eventoBean.selecionado}" rowKey="#{e.id}">
+				selection="#{tipoEventoBean.selecionado}" rowKey="#{t.id}">
 
 				<p:ajax event="rowSelect" update="consultar editar" />
 
-				<p:column headerText="Id" filterBy="#{e.id}" sortOrder="asc"
-					filterMatchMode="exact" sortBy="#{e.id}">
-					<h:outputText value="#{e.id}" />
+				<p:column headerText="Id" filterBy="#{t.id}" sortOrder="asc"
+					filterMatchMode="exact" sortBy="#{t.id}">
+					<h:outputText value="#{t.id}" />
 				</p:column>
 
-				<p:column headerText="Descricao" filterBy="#{e.descricao}"
-					filterMatchMode="contains" sortBy="#{e.descricao}">
-					<h:outputText value="#{e.descricao}" />
+				<p:column headerText="Descricao" filterBy="#{t.descricao}"
+					filterMatchMode="contains" sortBy="#{t.descricao}">
+					<h:outputText value="#{t.descricao}" />
 				</p:column>
 
 
@@ -67,24 +67,24 @@
 		</h:form>
 	</p:panel>
 
-	<p:panel id="editar" visible="#{eventoBean.editando}" >
+	<p:panel id="editar" visible="#{tipoEventoBean.editando}" >
 
 		<h:form>
 			<p:panelGrid columns="2">
 				<p:outputLabel value="Id"></p:outputLabel>
 				<p:inputNumber decimalPlaces="0" disabled="true" placeholder="Auto"
-					value="#{eventoBean.selecionado.id}"></p:inputNumber>
+					value="#{tipoEventoBean.selecionado.id}"></p:inputNumber>
 
 				<p:outputLabel value="Descricao"></p:outputLabel>
-				<p:inputText value="#{eventoBean.selecionado.descricao}"></p:inputText>
+				<p:inputText value="#{tipoEventoBean.selecionado.descricao}"></p:inputText>
 
 
 				<p:commandButton value="Salvar" ajax="true" icon="fa fa-save"
-					update="consultar editar" action="#{eventoBean.salvar}"></p:commandButton>
+					update="consultar editar" action="#{tipoEventoBean.salvar}"></p:commandButton>
 
 				<p:commandButton value="Cancelar" ajax="true" icon="fa fa-undo"
 					immediates="true" update="consultar editar"
-					action="#{eventoBean.cancelar}"></p:commandButton>
+					action="#{tipoEventoBean.cancelar}"></p:commandButton>
 
 
 			</p:panelGrid>

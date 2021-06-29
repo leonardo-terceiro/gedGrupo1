@@ -2,6 +2,7 @@ package br.upf.topicos.especiais.ged.grupo1.entity;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -24,7 +25,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Assina")
-public class AssinaEntity {
+public class AssinaEntity implements Serializable{
+
+	private static final long serialVersionUID = -9185194172371924792L;
 
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "assinaId")

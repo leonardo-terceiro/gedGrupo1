@@ -43,4 +43,10 @@ public class TipoEventoEntity implements Serializable{
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "tipoEvento", fetch = FetchType.EAGER)
 	private List<SubEventoEntity> subEventos;
+
+	@Override
+	public String toString() {
+		return "TipoEventoEntity [id=" + id + ", descricao=" + descricao + "]";
+	}
+	
 }

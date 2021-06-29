@@ -2,6 +2,8 @@ package br.upf.topicos.especiais.ged.grupo1.entity;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +24,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Participacao")
-public class ParticipacaoEntity {
+public class ParticipacaoEntity implements Serializable{
+
+	private static final long serialVersionUID = -2505046029737651791L;
 
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "participacaoId")

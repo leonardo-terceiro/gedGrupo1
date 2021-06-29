@@ -1,0 +1,202 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/all.min-jsf.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+
+<script type="text/javascript">
+     PrimeFaces.locales ['pt_Br'] = { 
+        closeText: 'Fechar',
+         prevText: 'Voltar',
+         nextText: 'Avançar',
+         monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        monthNamesShort: ['Jan', 'Feb', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+         dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
+        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+         dayNamesMin: ['D', 'S', 'T', 'Q ', 'Q', 'S ', 'S'],
+         weekHeader: 'Semana',
+         firstDay: 1,
+         isRTL: false,
+         showMonthAfterYear: false,
+        yearSuffix: '',
+         timeOnlyTitle: 'Horario',
+         timeText: 'Horario',
+         hourText: 'Hora',
+        minuteText: 'Minuto',
+       secondText: 'Segundo',
+         currentText: 'Data atual',
+        ampm: false,
+         month: 'Mês',
+        week: 'Semana',
+         day: 'Dia',
+         allDayText: 'Dia inteiro'
+     }; 
+</script>
+
+<style>
+ .no-border { 
+ 	border-style: hidden !important; 
+ 	text-align: center !important; 
+ } 
+</style> 
+
+</h:head>
+
+<h:body>
+
+	<p:panel id="consultar" visible="#{!subEventoBean.editando}">
+		<h:form>
+
+			<p:commandButton value="Incluir" ajax="true"
+				update="consultar editar" icon="fa fa-plus"
+				action="#{subEventoBean.incluir}"></p:commandButton>
+
+			<p:commandButton value="Alterar" ajax="true"
+				update="consultar editar" icon="fa fa-edit"
+				disabled="#{subEventoBean.selecionado.assina == null}"
+				action="#{subEventoBean.alterar}"></p:commandButton>
+
+			<p:commandButton value="Excluir" ajax="true"
+				update="consultar editar" icon="fa fa-remove"
+				disabled="#{subEventoBean.selecionado.assina == null}"
+				action="#{subEventoBean.excluir}">
+				<p:confirm header="Confirma��o" message="Confirma a exclus�o?"
+					icon="pi pi-exclamation-triangle" />
+			</p:commandButton>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+				responsive="true" width="350">
+				<p:commandButton value="N�o" type="button"
+					styleClass="ui-confirmdialog-no ui-button-flat" />
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" />
+			</p:confirmDialog>
+
+			<p:dataTable var="s" value="#{subEventoBean.lista}" rows="10"
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="Mostrando de {startRecord} até {endRecord} de {totalRecords}"
+				rowsPerPageTemplate="10,30,60" selectionMode="single"
+				selection="#{subEventoBean.selecionado}" rowKey="#{s.id}"
+				emptyMessage="Nenhum registro encontrado.">
+
+				<p:ajax event="rowSelect" update="consultar editar" />
+
+
+				<p:column headerText="Id" sortBy="#{s.id}" sortOrder="asc"
+					filterBy="#{s.id}" filterMatchMode="exact">
+					<h:outputText value="#{s.id}" />
+				</p:column>
+
+				<p:column headerText="Titulo" sortBy="#{s.titulo}" filterBy="#{s.titulo}"
+					filterMatchMode="contains">
+					<h:outputText value="#{s.titulo}" />
+				</p:column>
+
+				<p:column headerText="Descrição" sortBy="#{s.descricao}"
+					filterBy="#{s.descricao}" filterMatchMode="contains">
+					<h:outputText value="#{s.descricao}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Data de Inicio" sortBy="#{s.dataHoraInicio}" filterBy="#{s.dataHoraInicio}">
+            		<h:outputText value="#{s.dataHoraInicio}" > 
+            			<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Sao_Paulo"></f:convertDateTime>
+            		</h:outputText>
+            	</p:column>
+			
+				<p:column headerText="Data de Termino" sortBy="#{s.dataHoraTermino}" filterBy="#{s.dataHoraTermino}">
+            		<h:outputText value="#{s.dataHoraTermino}" > 
+            			<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Sao_Paulo"></f:convertDateTime>
+            		</h:outputText>
+            	</p:column>
+
+				<p:column headerText="Total de Horas" sortBy="#{s.totalHoras}" filterBy="#{s.totalHoras}"
+					filterMatchMode="exact">
+					<h:outputText value="#{s.totalHoras}"></h:outputText>
+				</p:column>
+				
+				<p:column headerText="Evento" sortBy="#{s.evento.titulo}" filterBy="#{s.evento.titulo}"
+					filterMatchMode="contains">
+					<h:outputText value="#{s.evento.titulo}" />
+				</p:column>
+				
+				<p:column headerText="Tipo de Evento" sortBy="#{s.tipoEvento.descricao}" filterBy="#{s.tipoEvento.descricao}"
+					filterMatchMode="contains">
+					<h:outputText value="#{s.tipoEvento.descricao}" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+	</p:panel>
+
+
+	<p:panel id="editar" visible="#{subEventoBean.editando}">
+
+		<h:form>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Id"></p:outputLabel>
+				<p:inputNumber decimalPlaces="0" disabled="true" placeholder="Auto"
+					value="#{subEventoBean.selecionado.id}"></p:inputNumber>
+
+				<p:outputLabel value="Titulo"></p:outputLabel>
+				<p:inputText value="#{subEventoBean.selecionado.titulo}"></p:inputText>
+
+				<p:outputLabel value="Descricao"></p:outputLabel>
+				<p:inputText value="#{subEventoBean.selecionado.descricao}"></p:inputText>
+	
+				<p:outputLabel value="Data de Inicio"></p:outputLabel>
+				<p:calendar id="buttonDataInicio" value="#{subEventoBean.selecionado.dataHoraInicio}" locale="pt" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"/>
+		
+				<p:outputLabel value="Data de Termino"></p:outputLabel>
+				<p:calendar id="buttonDataFim" value="#{subEventoBean.selecionado.dataHoraTermino}" locale="pt" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"/>
+				
+				<p:outputLabel value="Total de Horas"></p:outputLabel>
+				<p:inputNumber value="#{subEventoBean.selecionado.totalHoras}"></p:inputNumber>
+				
+				<p:outputLabel value="Evento" for="itEvento"></p:outputLabel>
+				<p:autoComplete id="itEvento" style="width:600px"
+								dropdown="true" multiple="false" forceSelection="true"
+								var="e" itemLabel="#{e.titulo}" itemValue="#{e}"
+								value="#{subEventoBean.selecionado.evento}"
+								converter="eventoConverter"
+								completeMethod="#{subEventoBean.completeEvento}"></p:autoComplete>
+
+				<p:outputLabel value="Tipo de Evento" for="itTipoEvento"></p:outputLabel>
+				<p:autoComplete id="itTipoEvento" style="width:600px"
+								dropdown="true" multiple="false" forceSelection="true"
+								var="t" itemLabel="#{t.descricao}" itemValue="#{t}"
+								value="#{subEventoBean.selecionado.tipoEvento}"
+								converter="tipoEventoConverter"
+								completeMethod="#{subEventoBean.completeTipoEvento}"></p:autoComplete>
+
+				<p:outputLabel value="Assinantes" for="assinante" />
+				<p:selectManyMenu id="assinante" value="#{subEventoBean.selecionado.assina}"
+                            converter="#{assinaConverter}"
+                            var="c" filter="true" filterMatchMode="contains" showCheckbox="true" styleClass="manymenu-advanced">
+                    <f:attribute name="collectionType" value="java.util.ArrayList"></f:attribute>
+		            <f:selectItems value="#{assinaBean.lista}" var="a" itemLabel="#{a.nome}" itemValue="#{a}"/>
+		            <p:column>
+		                <h:outputText value="#{c.nome}"/>
+		            </p:column>
+		        </p:selectManyMenu>
+
+				<p:commandButton value="Salvar" ajax="true" icon="fa fa-save"
+					update="consultar editar" action="#{subEventoBean.salvar}"></p:commandButton>
+
+				<p:commandButton value="Cancelar" ajax="true" icon="fa fa-undo"
+					immediates="true" update="consultar editar"
+					action="#{subEventoBean.cancelar}"></p:commandButton>
+
+			</p:panelGrid>
+		</h:form>
+	</p:panel>
+
+
+</h:body>
+</html>

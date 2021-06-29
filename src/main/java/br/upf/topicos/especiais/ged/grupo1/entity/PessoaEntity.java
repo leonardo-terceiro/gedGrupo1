@@ -67,5 +67,12 @@ public class PessoaEntity implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "pessoa", fetch = FetchType.EAGER)
 	private List<ParticipacaoEntity> participacoes;
-	
+
+	@Override
+	public String toString() {
+		return "PessoaEntity [id=" + id + ", nome=" + nome + ", telefone=" + telefone + ", email=" + email + ", senha="
+				+ senha + ", documento=" + documento + ", tipoDocumento=" + tipoDocumento + ", nacionalidade="
+				+ nacionalidade + "]";
+	}
+
 }
