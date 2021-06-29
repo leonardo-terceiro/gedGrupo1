@@ -73,13 +73,13 @@ public class SubEventoBean implements Serializable{
 		System.out.println("SubEventoBean - excluir() - " + selecionado);
 		try {
 //			dao.remove(selecionado);
-//			JsfUtil.addSuccessMessage("Excluído com sucesso!");
 			EntityManager em = JpaUtil.getInstance().getEntityManager();
 			em.getTransaction().begin();
 			Query qry = em.createQuery("DELETE from SubEventoEntity s WHERE s.id = :id");
 			qry.setParameter("id", selecionado.getId());
 			qry.executeUpdate();
 			em.getTransaction().commit();
+			JsfUtil.addSuccessMessage("Excluído com sucesso!");
 			setSelecionado(new SubEventoEntity());
 			carregarLista();
 		} catch (Exception e) {

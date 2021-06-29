@@ -54,11 +54,14 @@
 
 							<p:menuitem value="Pessoa Popup" icon="pi pi-fw pi-trash" 
 							   actionListener="#{homeBean.abrirPopup('PessoaForm.xhtml', 600, 600, true)}"/>
+							
+							<p:menuitem value="Template Popup" icon="pi pi-fw pi-trash" 
+							   actionListener="#{homeBean.abrirPopup('TemplateForm.xhtml', 600, 600, true)}"/>
 
 							<p:menuitem value="Assinatura Popup" icon="pi pi-fw pi-trash" 
 							   actionListener="#{homeBean.abrirPopup('AssinaForm.xhtml', 600, 600, true)}"/>
 
-							<p:menuitem value="Assinatura Popup" icon="pi pi-fw pi-trash" 
+							<p:menuitem value="Modalidade Popup" icon="pi pi-fw pi-trash" 
 							   actionListener="#{homeBean.abrirPopup('ModalidadeForm.xhtml', 600, 600, true)}"/>
 							
 							<p:menuitem value="Evento Popup" icon="pi pi-fw pi-trash" 
@@ -66,6 +69,9 @@
 							
 							<p:menuitem value="Sub Evento Popup" icon="pi pi-fw pi-trash" 
 							   actionListener="#{homeBean.abrirPopup('SubEvento.xhtml', 600, 600, true)}"/>
+							
+							<p:menuitem value="Modalidade Sub Evento Popup" icon="pi pi-fw pi-trash" 
+							   actionListener="#{homeBean.abrirPopup('ModalidadeSubEventoForm.xhtml', 600, 600, true)}"/>
 							
 							<p:menuitem value="Tipo Eventos popup" icon="pi pi-fw pi-external-link" 
 								actionListener="#{homeBean.abrirPopup('TipoEvento.xhtml', 600, 800, false)}"/>
@@ -134,8 +140,10 @@
 								<p:menuitem value="Pessoa" url="PessoaForm.xhtml" target="centro" icon="pi pi-fw pi-trash" />
 								<p:menuitem value="Assina" url="AssinaForm.xhtml" target="centro" icon="pi pi-fw pi-trash" />
 								<p:menuitem value="Modalidade" url="ModalidadeForm.xhtml" target="centro" icon="pi pi-fw pi-trash" />
+								<p:menuitem value="Template" url="TemplateForm.xhtml" target="centro" icon="pi pi-fw pi-external-link" />
 								<p:menuitem value="Eventos" url="EventoForm.xhtml" target="centro" icon="pi pi-fw pi-external-link" />
 								<p:menuitem value="SubEventos" url="SubEvento.xhtml" target="centro" icon="pi pi-fw pi-external-link" />
+								<p:menuitem value="Modalidade Sub Eventos" url="ModalidadeSubEventoForm.xhtml" target="centro" icon="pi pi-fw pi-external-link" />
 								<p:menuitem value="Tipo de Eventos" url="TipoEvento.xhtml" target="centro" icon="pi pi-fw pi-external-link" />
 	
 	

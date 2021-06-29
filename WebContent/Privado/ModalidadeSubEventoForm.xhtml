@@ -1,0 +1,140 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/all.min-jsf.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+
+<style>
+ .no-border { 
+ 	border-style: hidden !important; 
+ 	text-align: center !important; 
+ } 
+</style> 
+
+</h:head>
+
+<h:body>
+
+	<p:panel id="consultar" visible="#{!modalidadeSubEventoBean.editando}">
+		<h:form>
+
+			<p:commandButton value="Incluir" ajax="true"
+				update="consultar editar" icon="fa fa-plus"
+				action="#{modalidadeSubEventoBean.incluir}"></p:commandButton>
+
+			<p:commandButton value="Alterar" ajax="true"
+				update="consultar editar" icon="fa fa-edit"
+				disabled="#{modalidadeSubEventoBean.selecionado == null}"
+				action="#{modalidadeSubEventoBean.alterar}"></p:commandButton>
+
+			<p:commandButton value="Excluir" ajax="true"
+				update="consultar editar" icon="fa fa-remove"
+				disabled="#{modalidadeSubEventoBean.selecionado == null}"
+				action="#{modalidadeSubEventoBean.excluir}">
+				<p:confirm header="Confirma��o" message="Confirma a exclus�o?"
+					icon="pi pi-exclamation-triangle" />
+			</p:commandButton>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+				responsive="true" width="350">
+				<p:commandButton value="N�o" type="button"
+					styleClass="ui-confirmdialog-no ui-button-flat" />
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" />
+			</p:confirmDialog>
+
+			<p:dataTable var="m" value="#{modalidadeSubEventoBean.lista}" rows="10"
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="Mostrando de {startRecord} até {endRecord} de {totalRecords}"
+				rowsPerPageTemplate="10,30,60" selectionMode="single"
+				selection="#{modalidadeSubEventoBean.selecionado}" rowKey="#{m.id}"
+				emptyMessage="Nenhum registro encontrado.">
+
+				<p:ajax event="rowSelect" update="consultar editar" />
+
+
+				<p:column headerText="Id" sortBy="#{m.id}" sortOrder="asc"
+					filterBy="#{m.id}" filterMatchMode="exact">
+					<h:outputText value="#{m.id}" />
+				</p:column>
+
+				<p:column headerText="Sub Evento" sortBy="#{m.subEvento.titulo}" filterBy="#{m.subEvento.titulo}"
+					filterMatchMode="contains">
+					<h:outputText value="#{m.subEvento.titulo}" />
+				</p:column>
+
+				<p:column headerText="Modalidade" sortBy="#{m.modalidade.descricao}" filterBy="#{m.modalidade.descricao}"
+					filterMatchMode="contains">
+					<h:outputText value="#{m.modalidade.descricao}" />
+				</p:column>
+
+				<p:column headerText="Template" sortBy="#{m.template.descricao}" filterBy="#{m.template.descricao}"
+					filterMatchMode="contains">
+					<h:outputText value="#{m.template.descricao}" />
+				</p:column>
+
+				<p:column headerText="Nº de Participações" sortBy="#{m.participacoes.size}" filterBy="#{m.participacoes.size}"
+					filterMatchMode="exact">
+					<h:outputText value="#{m.participacoes.size()}">
+						<f:convertNumber integerOnly="true"></f:convertNumber>
+					</h:outputText>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+	</p:panel>
+
+
+	<p:panel id="editar" visible="#{modalidadeSubEventoBean.editando}">
+
+		<h:form>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Id"></p:outputLabel>
+				<p:inputNumber decimalPlaces="0" disabled="true" placeholder="Auto"
+					value="#{modalidadeSubEventoBean.selecionado.id}"></p:inputNumber>
+
+				<p:outputLabel value="Sub Evento" for="itSubEvento"></p:outputLabel>
+				<p:autoComplete id="itSubEvento" style="width:600px"
+								dropdown="true" multiple="false" forceSelection="true"
+								var="s" itemLabel="#{s.titulo}" itemValue="#{s}"
+								value="#{modalidadeSubEventoBean.selecionado.subEvento}"
+								converter="subEventoConverter"
+								completeMethod="#{modalidadeSubEventoBean.carregarSubEventos}"></p:autoComplete>
+				
+				<p:outputLabel value="Modalidade" for="itModalidade"></p:outputLabel>
+				<p:autoComplete id="itModalidade" style="width:600px"
+								dropdown="true" multiple="false" forceSelection="true"
+								var="m" itemLabel="#{m.descricao}" itemValue="#{m}"
+								value="#{modalidadeSubEventoBean.selecionado.modalidade}"
+								converter="modalidadeConverter"
+								completeMethod="#{modalidadeSubEventoBean.carregarModalidades}"></p:autoComplete>
+								
+				<p:outputLabel value="Template" for="itTemplate"></p:outputLabel>
+				<p:autoComplete id="itTemplate" style="width:600px"
+								dropdown="true" multiple="false" forceSelection="true"
+								var="t" itemLabel="#{t.descricao}" itemValue="#{t}"
+								value="#{modalidadeSubEventoBean.selecionado.template}"
+								converter="templateConverter"
+								completeMethod="#{modalidadeSubEventoBean.carregarTemplates}"></p:autoComplete>
+
+				<p:commandButton value="Salvar" ajax="true" icon="fa fa-save"
+					update="consultar editar" action="#{modalidadeSubEventoBean.salvar}"></p:commandButton>
+
+				<p:commandButton value="Cancelar" ajax="true" icon="fa fa-undo"
+					immediates="true" update="consultar editar"
+					action="#{modalidadeSubEventoBean.cancelar}"></p:commandButton>
+
+			</p:panelGrid>
+		</h:form>
+	</p:panel>
+
+
+</h:body>
+</html>

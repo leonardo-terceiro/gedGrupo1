@@ -71,7 +71,7 @@ public class TemplateBean implements Serializable{
 	
 	public void carregarLista() {
 		try {
-			lista = dao.createQuery("from Template order by id");
+			lista = dao.createQuery("from TemplateEntity order by id");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JsfUtil.addErrorMessage(TrataException.getMensagem(e)); 
