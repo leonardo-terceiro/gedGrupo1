@@ -5,9 +5,14 @@ import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
+import br.upf.topicos.especiais.ged.grupo1.entity.ModalidadeSubEventoEntity;
 import br.upf.topicos.especiais.ged.grupo1.entity.ParticipacaoEntity;
+import br.upf.topicos.especiais.ged.grupo1.entity.PessoaEntity;
 import br.upf.topicos.especiais.ged.grupo1.utils.GenericDao;
+import br.upf.topicos.especiais.ged.grupo1.utils.JpaUtil;
 import br.upf.topicos.especiais.ged.grupo1.utils.JsfUtil;
 import br.upf.topicos.especiais.ged.grupo1.utils.TrataException;
 import lombok.Data;
@@ -59,7 +64,12 @@ public class ParticipacaoBean implements Serializable{
 	
 	public void excluir() {
 		try {
-			dao.remove(selecionado);
+			EntityManager em = JpaUtil.getInstance().getEntityManager();
+			em.getTransaction().begin();
+			Query qry = em.createQuery("DELETE from ParticipacaoEntity p WHERE p.id = :id");
+			qry.setParameter("id", selecionado.getId());
+			qry.executeUpdate();
+			em.getTransaction().commit();
 			JsfUtil.addSuccessMessage("Excluído com sucesso!");
 			setSelecionado(null);
 			carregarLista();
@@ -71,11 +81,26 @@ public class ParticipacaoBean implements Serializable{
 	
 	public void carregarLista() {
 		try {
-			lista = dao.createQuery("from participacao order by id");
+			lista = dao.createQuery("from ParticipacaoEntity order by id");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JsfUtil.addErrorMessage(TrataException.getMensagem(e)); 
 		}			
 	}	
 	
+	@SuppressWarnings("unchecked")
+	public List<PessoaEntity> carregarPessoas(String query) {
+		EntityManager em = JpaUtil.getInstance().getEntityManager();
+		List<PessoaEntity> results = em.createQuery(" from PessoaEntity where upper(nome) like " + "'" + query.trim().toUpperCase() + "%'" + " order by id").getResultList();
+		em.close();
+		return results;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ModalidadeSubEventoEntity> carregarModalidadesSubEvento(String query) {
+		EntityManager em = JpaUtil.getInstance().getEntityManager();
+		List<ModalidadeSubEventoEntity> results = em.createQuery(" from ModalidadeSubEventoEntity order by id").getResultList();
+		em.close();
+		return results;
+	}
 }

@@ -77,5 +77,5 @@ public class PessoaBean implements Serializable{
 			JsfUtil.addErrorMessage(TrataException.getMensagem(e)); 
 		}			
 	}	
-
+	
 }
