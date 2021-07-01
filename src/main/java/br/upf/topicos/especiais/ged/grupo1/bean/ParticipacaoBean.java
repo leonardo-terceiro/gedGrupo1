@@ -20,6 +20,7 @@ import br.upf.topicos.especiais.ged.grupo1.entity.PessoaEntity;
 import br.upf.topicos.especiais.ged.grupo1.utils.GenericDao;
 import br.upf.topicos.especiais.ged.grupo1.utils.JpaUtil;
 import br.upf.topicos.especiais.ged.grupo1.utils.JsfUtil;
+import br.upf.topicos.especiais.ged.grupo1.utils.MailSenderUtil;
 import br.upf.topicos.especiais.ged.grupo1.utils.RelatorioUtil;
 import br.upf.topicos.especiais.ged.grupo1.utils.TrataException;
 import lombok.Data;
@@ -140,5 +141,9 @@ public class ParticipacaoBean implements Serializable{
 			JsfUtil.addErrorMessage(e.getMessage());
 			return null;
 		}
+	}
+	
+	public void enviarEmail() {
+		MailSenderUtil.sendMail(selecionado.getPessoa().getEmail(), selecionado.getModalidadeSubEvento().getSubEvento().getEvento().getTitulo(), selecionado.getPessoa().getNome(), selecionado.getArquivo());
 	}
 }
