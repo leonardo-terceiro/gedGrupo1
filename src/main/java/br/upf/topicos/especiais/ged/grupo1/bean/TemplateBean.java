@@ -1,14 +1,18 @@
 package br.upf.topicos.especiais.ged.grupo1.bean;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.model.StreamedContent;
+
 import br.upf.topicos.especiais.ged.grupo1.entity.TemplateEntity;
 import br.upf.topicos.especiais.ged.grupo1.utils.GenericDao;
 import br.upf.topicos.especiais.ged.grupo1.utils.JsfUtil;
+import br.upf.topicos.especiais.ged.grupo1.utils.RelatorioUtil;
 import br.upf.topicos.especiais.ged.grupo1.utils.TrataException;
 import lombok.Data;
 
@@ -78,4 +82,16 @@ public class TemplateBean implements Serializable{
 		}			
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public StreamedContent gerarPDF() {
+		try {
+			HashMap parameters = new HashMap<>();
+			return RelatorioUtil.gerarStreamRelatorioPDF("relatorios/templateRelatorio.jasper", parameters,
+					"Templates.pdf");
+		} catch (Exception e) {
+			e.printStackTrace();
+			JsfUtil.addErrorMessage(e.getMessage());
+			return null;
+		}
+	}
 }

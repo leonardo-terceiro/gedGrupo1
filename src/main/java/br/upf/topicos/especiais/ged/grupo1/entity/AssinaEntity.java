@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -43,9 +44,9 @@ public class AssinaEntity implements Serializable{
 	@Column(name = "funcao")
 	private String funcao;
 	
-	@NotEmpty(message = "a imagem deve ser informada!")
+	@Lob
 	@Column(name = "imagem")
-	private String imagem;
+	private byte[] imagem;
 	
 	@Column(name = "dataInativo")
 	@Temporal(TemporalType.TIMESTAMP)

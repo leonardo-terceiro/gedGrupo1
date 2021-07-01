@@ -56,6 +56,10 @@
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
 
+			<p:commandButton ajax="false" onclick="target='_blank';" value="Relatório de Assinaturas" icon="pi pi-file-pdf">
+				<p:fileDownload contentDisposition="inline" value="#{assinaBean.gerarPDF()}" />
+			</p:commandButton>
+			
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
 				responsive="true" width="350">
 				<p:commandButton value="N�o" type="button"
@@ -94,7 +98,7 @@
 
 				<p:column headerText="Imagem" sortBy="#{a.imagem}"
 					filterBy="#{a.imagem}" filterMatchMode="contains">
-					<h:outputText value="#{a.imagem}" />
+					<p:graphicImage id="imagem" stream="false" width="60" height="60" value="#{assinaBean.redenImagem(a.imagem)}"></p:graphicImage>
 				</p:column>
 
 				<p:column headerText="Data de Inativação" sortBy="#{a.dataInativo}"
@@ -112,7 +116,7 @@
 
 	<p:panel id="editar" visible="#{assinaBean.editando}">
 
-		<h:form>
+		<h:form enctype="multipart/form-data">
 			<p:panelGrid columns="2">
 				<p:outputLabel value="Id"></p:outputLabel>
 				<p:inputNumber decimalPlaces="0" disabled="true" placeholder="Auto"
@@ -123,9 +127,15 @@
 
 				<p:outputLabel value="Função"></p:outputLabel>
 				<p:inputText value="#{assinaBean.selecionado.funcao}"></p:inputText>
-
+				
 				<p:outputLabel value="Imagem"></p:outputLabel>
-				<p:inputText value="#{assinaBean.selecionado.imagem}"></p:inputText>
+				<p:panelGrid columns="2">
+			
+					<p:graphicImage id="imagem" stream="false" width="200" height="200" value="#{assinaBean.getImagem()}"></p:graphicImage>	
+					<p:fileUpload listener="#{assinaBean.handleFileUpload}" update="editar" mode="advanced"
+								dragDropSupport="true" sizeLimit="1000000" fileLimit="1"
+								validateContentType="true" accept=".jpg, .jpeg, .png"/>
+				</p:panelGrid>
 				
 				<p:outputLabel value="Data Inativo"></p:outputLabel>
 				<p:inputText disabled="true" placeholder="Auto" value="#{assinaBean.selecionado.dataInativo}"></p:inputText>

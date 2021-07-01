@@ -1,4 +1,15 @@
 eclipse.preferences.version=1
+encoding//WebContent/relatorios/assinaRelatorio.jrxml=UTF-8
+encoding//WebContent/relatorios/eventoParticipantesRelatorio.jrxml=UTF-8
+encoding//WebContent/relatorios/eventoRelatorio.jrxml=UTF-8
+encoding//WebContent/relatorios/modalidadeRelatorio.jrxml=UTF-8
+encoding//WebContent/relatorios/modalidadeSubEventoRelatorio.jrxml=UTF-8
+encoding//WebContent/relatorios/participacaoRelatorio.jrxml=UTF-8
+encoding//WebContent/relatorios/pessoaParticipacoesRelatorio.jrxml=UTF-8
+encoding//WebContent/relatorios/pessoaRelatorio.jrxml=UTF-8
+encoding//WebContent/relatorios/subEventoRelatorio.jrxml=UTF-8
+encoding//WebContent/relatorios/templateRelatorio.jrxml=UTF-8
+encoding//WebContent/relatorios/tipoEventoRelatorio.jrxml=UTF-8
 encoding//src/main/java=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

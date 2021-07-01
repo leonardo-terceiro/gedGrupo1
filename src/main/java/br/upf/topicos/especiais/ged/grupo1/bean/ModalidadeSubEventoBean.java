@@ -1,12 +1,15 @@
 package br.upf.topicos.especiais.ged.grupo1.bean;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import org.primefaces.model.StreamedContent;
 
 import br.upf.topicos.especiais.ged.grupo1.entity.ModalidadeEntity;
 import br.upf.topicos.especiais.ged.grupo1.entity.ModalidadeSubEventoEntity;
@@ -15,6 +18,7 @@ import br.upf.topicos.especiais.ged.grupo1.entity.TemplateEntity;
 import br.upf.topicos.especiais.ged.grupo1.utils.GenericDao;
 import br.upf.topicos.especiais.ged.grupo1.utils.JpaUtil;
 import br.upf.topicos.especiais.ged.grupo1.utils.JsfUtil;
+import br.upf.topicos.especiais.ged.grupo1.utils.RelatorioUtil;
 import br.upf.topicos.especiais.ged.grupo1.utils.TrataException;
 import lombok.Data;
 
@@ -111,6 +115,19 @@ public class ModalidadeSubEventoBean implements Serializable{
 		List<TemplateEntity> results = em.createQuery(" from TemplateEntity where upper(descricao) like " + "'" + query.trim().toUpperCase() + "%'" + " order by id").getResultList();
 		em.close();
 		return results;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public StreamedContent gerarPDF() {
+		try {
+			HashMap parameters = new HashMap<>();
+			return RelatorioUtil.gerarStreamRelatorioPDF("relatorios/modalidadeSubEventoRelatorio.jasper", parameters,
+					"ModalidadesSubEvento.pdf");
+		} catch (Exception e) {
+			e.printStackTrace();
+			JsfUtil.addErrorMessage(e.getMessage());
+			return null;
+		}
 	}
 	
 }

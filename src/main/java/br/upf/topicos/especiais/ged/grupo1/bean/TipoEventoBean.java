@@ -1,14 +1,18 @@
 package br.upf.topicos.especiais.ged.grupo1.bean;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.model.StreamedContent;
+
 import br.upf.topicos.especiais.ged.grupo1.entity.TipoEventoEntity;
 import br.upf.topicos.especiais.ged.grupo1.utils.GenericDao;
 import br.upf.topicos.especiais.ged.grupo1.utils.JsfUtil;
+import br.upf.topicos.especiais.ged.grupo1.utils.RelatorioUtil;
 import br.upf.topicos.especiais.ged.grupo1.utils.TrataException;
 import lombok.Data;
 
@@ -30,55 +34,66 @@ public class TipoEventoBean implements Serializable {
 		setEditando(false);
 		carregarLista();
 	}
-	
+
 	public void incluir() {
-		selecionado = new TipoEventoEntity(); 
+		selecionado = new TipoEventoEntity();
 		setEditando(true);
 	}
 
 	public void alterar() {
 		setEditando(true);
 	}
-	
+
 	public void cancelar() {
 		carregarLista();
-		setSelecionado(null); 
+		setSelecionado(null);
 		setEditando(false);
 	}
-	
+
 	public void salvar() {
 		try {
-			setSelecionado( dao.merge(selecionado) );
+			setSelecionado(dao.merge(selecionado));
 			JsfUtil.addSuccessMessage("Salvo com sucesso!");
-			carregarLista(); 
+			carregarLista();
 			setEditando(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 			JsfUtil.addErrorMessage(TrataException.getMensagem(e));
 		}
 	}
-	
+
 	public void excluir() {
 		try {
 			dao.remove(selecionado);
 			JsfUtil.addSuccessMessage("Excluído com sucesso!");
-			setSelecionado(null); 
-			carregarLista(); 
+			setSelecionado(null);
+			carregarLista();
 		} catch (Exception e) {
 			e.printStackTrace();
 			JsfUtil.addErrorMessage(TrataException.getMensagem(e));
 		}
 	}
-	
+
 	public void carregarLista() {
 		try {
 			lista = dao.createQuery("from TipoEventoEntity order by id");
 		} catch (Exception e) {
 			e.printStackTrace();
-			JsfUtil.addErrorMessage(TrataException.getMensagem(e)); 
-		}			
-	}	
-	
+			JsfUtil.addErrorMessage(TrataException.getMensagem(e));
+		}
+	}
 
+	@SuppressWarnings("rawtypes")
+	public StreamedContent gerarPDF() {
+		try {
+			HashMap parameters = new HashMap<>();
+			return RelatorioUtil.gerarStreamRelatorioPDF("relatorios/tipoEventoRelatorio.jasper", parameters,
+					"TipoEvento.pdf");
+		} catch (Exception e) {
+			e.printStackTrace();
+			JsfUtil.addErrorMessage(e.getMessage());
+			return null;
+		}
+	}
 
 }

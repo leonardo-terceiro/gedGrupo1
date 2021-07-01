@@ -47,6 +47,6 @@ public class ParticipacaoEntity implements Serializable{
 	
 	@Lob
 	@Column(name = "arquivo")
-	private String arquivo;
+	private byte[] arquivo;
 	
 }

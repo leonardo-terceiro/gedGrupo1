@@ -69,6 +69,10 @@
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
 
+			<p:commandButton ajax="false" onclick="target='_blank';" value="Relatório de Eventos" icon="pi pi-file-pdf">
+				<p:fileDownload contentDisposition="inline" value="#{eventoBean.gerarPDF()}" />
+			</p:commandButton>
+
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
 				responsive="true" width="350">
 				<p:commandButton value="N�o" type="button"
@@ -118,6 +122,13 @@
             	<p:column headerText="Total de Horas" sortBy="#{e.totalHoras}" filterBy="#{e.totalHoras}"
 					filterMatchMode="exact">
 					<h:outputText value="#{e.totalHoras}"></h:outputText>
+				</p:column>
+				
+				<p:column headerText="Rel. Participantes" >
+					<p:commandButton ajax="false" disabled="#{eventoBean.selecionado == null || eventoBean.selecionado.id != e.id || !eventoBean.hasParticipacoes()}" 
+					onclick="target='_blank';" value="Rel. Participantes" icon="pi pi-file-pdf">
+						<p:fileDownload contentDisposition="inline" value="#{eventoBean.gerarUserPDF(e.id)}" />
+					</p:commandButton>
 				</p:column>
 
 			</p:dataTable>

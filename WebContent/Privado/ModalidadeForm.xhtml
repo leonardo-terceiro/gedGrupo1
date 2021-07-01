@@ -40,6 +40,10 @@
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
 
+			<p:commandButton ajax="false" onclick="target='_blank';" value="Relatório de Modalidades" icon="pi pi-file-pdf">
+				<p:fileDownload contentDisposition="inline" value="#{modalidadeBean.gerarPDF()}" />
+			</p:commandButton>
+
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
 				responsive="true" width="350">
 				<p:commandButton value="N�o" type="button"

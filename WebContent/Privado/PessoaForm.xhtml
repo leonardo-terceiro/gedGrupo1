@@ -40,6 +40,10 @@
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
 
+			<p:commandButton ajax="false" onclick="target='_blank';" value="Relatório de Pessoas" icon="pi pi-file-pdf">
+				<p:fileDownload contentDisposition="inline" value="#{pessoaBean.gerarPDF()}" />
+			</p:commandButton>
+
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
 				responsive="true" width="350">
 				<p:commandButton value="N�o" type="button"
@@ -89,6 +93,13 @@
 				<p:column headerText="Nacionalidade" sortBy="#{p.nacionalidade}"
 					filterBy="#{p.nacionalidade}" filterMatchMode="contains">
 					<h:outputText value="#{p.nacionalidade}" />
+				</p:column>
+
+				<p:column headerText="Relatorio de Participações" >
+					<p:commandButton ajax="false" disabled="#{pessoaBean.selecionado == null || pessoaBean.selecionado.id != p.id || !pessoaBean.hasParticipacoes()}" 
+					onclick="target='_blank';" value="Rel. Participações" icon="pi pi-file-pdf">
+						<p:fileDownload contentDisposition="inline" value="#{pessoaBean.gerarUserPDF(p.id)}" />
+					</p:commandButton>
 				</p:column>
 
 

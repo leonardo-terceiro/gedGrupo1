@@ -39,6 +39,10 @@
 				<p:confirm header="Confirma��o" message="Confirma a exclus�o?"
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
+			
+			<p:commandButton ajax="false" onclick="target='_blank';" value="Relatório de Participações" icon="pi pi-file-pdf">
+				<p:fileDownload contentDisposition="inline" value="#{participacaoBean.gerarPDF()}" />
+			</p:commandButton>
 
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
 				responsive="true" width="350">
@@ -88,6 +92,14 @@
 					filterMatchMode="exact">
 					<h:outputText value="#{p.horasParticipou}"></h:outputText>
 				</p:column>
+				
+				<p:column headerText="Download File">
+					<p:commandButton value="Download" disabled="#{participacaoBean.selecionado == null || p.arquivo == null || participacaoBean.selecionado.arquivo == null || participacaoBean.selecionado.id != p.id}" 
+					ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);"
+                         icon="pi pi-arrow-down" styleClass="p-mr-2">
+            			<p:fileDownload value="#{participacaoBean.downloadFile()}"/>
+        			</p:commandButton>
+				</p:column>
 
 			</p:dataTable>
 		</h:form>
@@ -97,7 +109,7 @@
 
 	<p:panel id="editar" visible="#{participacaoBean.editando}">
 
-		<h:form>
+		<h:form enctype="multipart/form-data">
 			<p:panelGrid columns="2">
 				<p:outputLabel value="Id"></p:outputLabel>
 				<p:inputNumber decimalPlaces="0" disabled="true" placeholder="Auto"
@@ -121,6 +133,11 @@
 
 				<p:outputLabel value="Horas que participou"></p:outputLabel>
 				<p:inputNumber value="#{participacaoBean.selecionado.horasParticipou}"></p:inputNumber>
+
+				<p:outputLabel value="Arquivo"></p:outputLabel>
+				<p:fileUpload listener="#{participacaoBean.handleFileUpload}" mode="advanced"
+							dragDropSupport="true" sizeLimit="1000000" fileLimit="1"
+							validateContentType="true" accept=".pdf"/>
 
 				<p:commandButton value="Salvar" ajax="true" icon="fa fa-save"
 					update="consultar editar" action="#{participacaoBean.salvar}"></p:commandButton>

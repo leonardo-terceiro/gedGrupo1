@@ -39,6 +39,10 @@
 				<p:confirm header="Confirma��o" message="Confirma a exclus�o?"
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
+			
+			<p:commandButton ajax="false" onclick="target='_blank';" value="Relatório de Sub Templates" icon="pi pi-file-pdf">
+				<p:fileDownload contentDisposition="inline" value="#{templateBean.gerarPDF()}" />
+			</p:commandButton>
 
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
 				responsive="true" width="350">

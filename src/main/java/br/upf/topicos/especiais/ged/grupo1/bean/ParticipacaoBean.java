@@ -1,6 +1,8 @@
 package br.upf.topicos.especiais.ged.grupo1.bean;
 
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
@@ -8,12 +10,17 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+
 import br.upf.topicos.especiais.ged.grupo1.entity.ModalidadeSubEventoEntity;
 import br.upf.topicos.especiais.ged.grupo1.entity.ParticipacaoEntity;
 import br.upf.topicos.especiais.ged.grupo1.entity.PessoaEntity;
 import br.upf.topicos.especiais.ged.grupo1.utils.GenericDao;
 import br.upf.topicos.especiais.ged.grupo1.utils.JpaUtil;
 import br.upf.topicos.especiais.ged.grupo1.utils.JsfUtil;
+import br.upf.topicos.especiais.ged.grupo1.utils.RelatorioUtil;
 import br.upf.topicos.especiais.ged.grupo1.utils.TrataException;
 import lombok.Data;
 
@@ -102,5 +109,36 @@ public class ParticipacaoBean implements Serializable{
 		List<ModalidadeSubEventoEntity> results = em.createQuery(" from ModalidadeSubEventoEntity order by id").getResultList();
 		em.close();
 		return results;
+	}
+	
+	public void handleFileUpload(FileUploadEvent event) {
+		selecionado.setArquivo(event.getFile().getContent());
+	}
+	
+	public StreamedContent downloadFile() {
+		StreamedContent file = DefaultStreamedContent.builder()
+				.name(selecionado.getPessoa().getNome()
+						.concat("_")
+						.concat(selecionado.getModalidadeSubEvento().getSubEvento().getTitulo())
+						.concat("_")
+						.concat(selecionado.getModalidadeSubEvento().getModalidade().getDescricao())
+						.concat(".pdf"))
+				.contentType("application/pdf")
+				.stream(() -> new ByteArrayInputStream(selecionado.getArquivo()))
+				.build();
+		return file;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public StreamedContent gerarPDF() {
+		try {
+			HashMap parameters = new HashMap<>();
+			return RelatorioUtil.gerarStreamRelatorioPDF("relatorios/participacaoRelatorio.jasper", parameters,
+					"Participacao.pdf");
+		} catch (Exception e) {
+			e.printStackTrace();
+			JsfUtil.addErrorMessage(e.getMessage());
+			return null;
+		}
 	}
 }

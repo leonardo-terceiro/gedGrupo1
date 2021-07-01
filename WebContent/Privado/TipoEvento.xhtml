@@ -4,11 +4,18 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/all.min-jsf.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
 
-	<h:outputStylesheet library="webjars"
-		name="font-awsome/5.12.0/css/all.min.jsf.css" />
-	<h:outputStylesheet library="webjars"
-		name="font-awsome/5.12.0/css/v4.shims.min.jsf.css" />
+<style>
+ .no-border { 
+ 	border-style: hidden !important; 
+ 	text-align: center !important; 
+ } 
+</style> 
+
 </h:head>
 
 <h:body>
@@ -31,6 +38,10 @@
 				<p:confirm header="Confirmation"
 					message="Voce tem certeza que deseja excluir?"
 					icon="pi pi-exclamation-triangle" />
+			</p:commandButton>
+			
+			<p:commandButton ajax="false" onclick="target='_blank';" value="Relatório Tipo Evento" icon="pi pi-file-pdf">
+				<p:fileDownload contentDisposition="inline" value="#{tipoEventoBean.gerarPDF()}" />
 			</p:commandButton>
 
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
