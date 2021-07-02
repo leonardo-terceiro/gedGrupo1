@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.upf.topicos.especiais.ged.grupo1.entity.UsuarioEntity;
-import br.upf.topicos.especiais.ged.grupo1.utils.JpaUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.JpaUtil;
 import lombok.Data;
 
 
@@ -32,7 +32,7 @@ public class LoginControle implements Serializable{
 		usuarioLogado = null;
 		JpaUtil.getInstance();
 		EntityManager em = JpaUtil.getInstance().getEntityManager();
-		String oql = "from UsuarioEntity where email = :email and senha = :senha";
+		String oql = "FROM UsuarioEntity WHERE email = :email AND senha = :senha AND dataInativo IS NULL";
 		Query qry = em.createQuery(oql);
 		qry.setParameter("email", this.email);
 		qry.setParameter("senha", this.senha);

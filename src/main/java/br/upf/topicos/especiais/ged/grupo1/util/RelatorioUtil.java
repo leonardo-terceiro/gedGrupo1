@@ -1,4 +1,4 @@
-package br.upf.topicos.especiais.ged.grupo1.utils;
+package br.upf.topicos.especiais.ged.grupo1.util;
 
 import java.io.ByteArrayInputStream;
 import java.sql.Connection;

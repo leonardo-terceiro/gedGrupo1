@@ -20,6 +20,10 @@
 
 <h:body>
 
+	<h1>
+		<h:outputText value="Assinatura"></h:outputText>
+	</h1>
+
 	<p:panel id="consultar" visible="#{!assinaBean.editando}">
 		<h:form>
 
@@ -36,23 +40,23 @@
 				update="consultar editar" icon="fa fa-remove"
 				disabled="#{assinaBean.selecionado == null}"
 				action="#{assinaBean.excluir}">
-				<p:confirm header="Confirma��o" message="Confirma a exclus�o?"
+				<p:confirm header="Confirmação" message="Confirma a exclusão?"
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
 			
 			<p:commandButton value="Ativar" ajax="true"
-				update="consultar editar" icon="fa fa-edit"
+				update="consultar editar" icon="fa fa-unlock"
 				disabled="#{assinaBean.selecionado == null || assinaBean.selecionado.dataInativo == null}"
 				action="#{assinaBean.ativar}">
-				<p:confirm header="Confirma��o" message="Confirma a ativação?"
+				<p:confirm header="Confirmaçãoo" message="Confirma a ativação?"
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
 
 			<p:commandButton value="Inativar" ajax="true"
-				update="consultar editar" icon="fa fa-remove"
+				update="consultar editar" icon="fa fa-lock"
 				disabled="#{assinaBean.selecionado == null || assinaBean.selecionado.dataInativo != null}"
 				action="#{assinaBean.inativar}">
-				<p:confirm header="Confirma��o" message="Confirma a inativação?"
+				<p:confirm header="Confirmação" message="Confirma a inativação?"
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
 
@@ -62,12 +66,14 @@
 			
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
 				responsive="true" width="350">
-				<p:commandButton value="N�o" type="button"
+				<p:commandButton value="Não" type="button"
 					styleClass="ui-confirmdialog-no ui-button-flat" />
 				<p:commandButton value="Sim" type="button"
 					styleClass="ui-confirmdialog-yes" />
 			</p:confirmDialog>
 
+			<p:growl id="msg"></p:growl>
+				
 			<p:dataTable var="a" value="#{assinaBean.lista}" rows="10"
 				paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -104,7 +110,7 @@
 				<p:column headerText="Data de Inativação" sortBy="#{a.dataInativo}"
 					filterBy="#{a.dataInativo}" filterMatchMode="exact">
 					<h:outputText value="#{a.dataInativo}" > 
-            			<f:convertDateTime pattern="dd/MM/yyyy HH:mm"></f:convertDateTime>
+            			<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Sao_Paulo"></f:convertDateTime>
             		</h:outputText>
 				</p:column>
 
@@ -136,9 +142,6 @@
 								dragDropSupport="true" sizeLimit="1000000" fileLimit="1"
 								validateContentType="true" accept=".jpg, .jpeg, .png"/>
 				</p:panelGrid>
-				
-				<p:outputLabel value="Data Inativo"></p:outputLabel>
-				<p:inputText disabled="true" placeholder="Auto" value="#{assinaBean.selecionado.dataInativo}"></p:inputText>
 
 				<p:commandButton value="Salvar" ajax="true" icon="fa fa-save"
 					update="consultar editar" action="#{assinaBean.salvar}"></p:commandButton>

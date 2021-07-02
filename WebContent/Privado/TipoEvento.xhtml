@@ -20,6 +20,10 @@
 
 <h:body>
 
+	<h1>
+		<h:outputText value="Tipos de Evento"></h:outputText>
+	</h1>
+
 	<p:panel id="consultar" visible="#{!tipoEventoBean.editando}" >
 
 		<h:form>
@@ -36,7 +40,7 @@
 				update="consultar editar" icon="fa fa-remove" disabled="#{tipoEventoBean.selecionado == null}"
 				action="#{tipoEventoBean.excluir}">
 				<p:confirm header="Confirmation"
-					message="Voce tem certeza que deseja excluir?"
+					message="Você tem certeza que deseja excluir?"
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
 			
@@ -46,7 +50,7 @@
 
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
 				responsive="true" width="350">
-				<p:commandButton value="Nao" type="button"
+				<p:commandButton value="Não" type="button"
 					styleClass="ui-confirmdialog-no ui-button-flat" />
 				<p:commandButton value="Sim" type="button"
 					styleClass="ui-confirmdialog-yes" />

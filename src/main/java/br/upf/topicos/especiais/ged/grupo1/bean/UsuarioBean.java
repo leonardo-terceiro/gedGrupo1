@@ -8,9 +8,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import br.upf.topicos.especiais.ged.grupo1.entity.UsuarioEntity;
-import br.upf.topicos.especiais.ged.grupo1.utils.GenericDao;
-import br.upf.topicos.especiais.ged.grupo1.utils.JsfUtil;
-import br.upf.topicos.especiais.ged.grupo1.utils.TrataException;
+import br.upf.topicos.especiais.ged.grupo1.util.GenericDao;
+import br.upf.topicos.especiais.ged.grupo1.util.JsfUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.TrataException;
 import lombok.Data;
 
 @Data

@@ -9,7 +9,7 @@ import javax.faces.convert.FacesConverter;
 import javax.persistence.EntityManager;
 
 import br.upf.topicos.especiais.ged.grupo1.entity.PessoaEntity;
-import br.upf.topicos.especiais.ged.grupo1.utils.JpaUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.JpaUtil;
 
 @FacesConverter(value = "pessoaConverter")
 public class PessoaConverter implements Converter<PessoaEntity>{

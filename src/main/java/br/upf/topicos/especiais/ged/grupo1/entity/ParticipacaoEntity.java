@@ -45,6 +45,7 @@ public class ParticipacaoEntity implements Serializable{
 	@Column(name = "horas_participou")
 	private Double horasParticipou;
 	
+	@NotNull(message = "O arquivo é requerido!")
 	@Lob
 	@Column(name = "arquivo")
 	private byte[] arquivo;

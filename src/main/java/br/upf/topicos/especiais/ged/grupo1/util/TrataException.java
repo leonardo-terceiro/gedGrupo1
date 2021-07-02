@@ -1,4 +1,4 @@
-package br.upf.topicos.especiais.ged.grupo1.utils;
+package br.upf.topicos.especiais.ged.grupo1.util;
 
 public class TrataException {
 

@@ -10,10 +10,10 @@ import javax.inject.Named;
 import org.primefaces.model.StreamedContent;
 
 import br.upf.topicos.especiais.ged.grupo1.entity.ModalidadeEntity;
-import br.upf.topicos.especiais.ged.grupo1.utils.GenericDao;
-import br.upf.topicos.especiais.ged.grupo1.utils.JsfUtil;
-import br.upf.topicos.especiais.ged.grupo1.utils.RelatorioUtil;
-import br.upf.topicos.especiais.ged.grupo1.utils.TrataException;
+import br.upf.topicos.especiais.ged.grupo1.util.GenericDao;
+import br.upf.topicos.especiais.ged.grupo1.util.JsfUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.RelatorioUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.TrataException;
 import lombok.Data;
 
 @Data

@@ -9,7 +9,7 @@ import javax.faces.convert.FacesConverter;
 import javax.persistence.EntityManager;
 
 import br.upf.topicos.especiais.ged.grupo1.entity.SubEventoEntity;
-import br.upf.topicos.especiais.ged.grupo1.utils.JpaUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.JpaUtil;
 
 @FacesConverter(value = "subEventoConverter")
 public class SubEventoConverter implements Converter<SubEventoEntity>{

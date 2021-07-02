@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,16 +15,19 @@ import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import br.upf.topicos.especiais.ged.grupo1.entity.AssinaEntity;
-import br.upf.topicos.especiais.ged.grupo1.utils.GenericDao;
-import br.upf.topicos.especiais.ged.grupo1.utils.JsfUtil;
-import br.upf.topicos.especiais.ged.grupo1.utils.RelatorioUtil;
-import br.upf.topicos.especiais.ged.grupo1.utils.TrataException;
+import br.upf.topicos.especiais.ged.grupo1.util.GenericDao;
+import br.upf.topicos.especiais.ged.grupo1.util.JpaUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.JsfUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.RelatorioUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.TrataException;
 import lombok.Data;
 
 @Data
@@ -59,14 +64,39 @@ public class AssinaBean implements Serializable{
 	}
 	
 	public void ativar() {
-		selecionado.setDataInativo(null);
-		salvar();
+		try {
+			EntityManager em = JpaUtil.getInstance().getEntityManager();
+			em.getTransaction().begin();
+			Query qry = em.createQuery("UPDATE AssinaEntity a SET a.dataInativo = :data WHERE a.id = :id");
+			qry.setParameter("data", null);
+			qry.setParameter("id", selecionado.getId());
+			qry.executeUpdate();
+			em.getTransaction().commit();
+			setSelecionado(null);
+			carregarLista();
+		} catch (Exception e) {
+			e.printStackTrace();
+			JsfUtil.addErrorMessage(TrataException.getMensagem(e));
+		}
 	}
 	
 	public void inativar() {
-		selecionado.setDataInativo(new Date());
-		salvar();
+		try {
+			EntityManager em = JpaUtil.getInstance().getEntityManager();
+			em.getTransaction().begin();
+			Query qry = em.createQuery("UPDATE AssinaEntity a SET a.dataInativo = :data WHERE a.id = :id");
+			qry.setParameter("data", Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+			qry.setParameter("id", selecionado.getId());
+			qry.executeUpdate();
+			em.getTransaction().commit();
+			setSelecionado(null);
+			carregarLista();
+		} catch (Exception e) {
+			e.printStackTrace();
+			JsfUtil.addErrorMessage(TrataException.getMensagem(e));
+		}
 	}
+	
 	
 	public void salvar() {
 		try {
@@ -83,6 +113,12 @@ public class AssinaBean implements Serializable{
 	public void excluir() {
 		try {
 			dao.remove(selecionado);
+			EntityManager em = JpaUtil.getInstance().getEntityManager();
+			em.getTransaction().begin();
+			Query qry = em.createQuery("DELETE from AssinaEntity a WHERE a.id = :id");
+			qry.setParameter("id", selecionado.getId());
+			qry.executeUpdate();
+			em.getTransaction().commit();
 			JsfUtil.addSuccessMessage("Excluído com sucesso!");
 			setSelecionado(null);
 			carregarLista();
@@ -94,12 +130,22 @@ public class AssinaBean implements Serializable{
 	
 	public void carregarLista() {
 		try {
-			lista = dao.createQuery("from AssinaEntity order by id");
+			lista = dao.createQuery("FROM AssinaEntity ORDER BY id");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JsfUtil.addErrorMessage(TrataException.getMensagem(e)); 
 		}			
 	}	
+	
+	public List<AssinaEntity> carregarAssinaturasDisponiveis() {
+		try {
+			return dao.createQuery("FROM AssinaEntity WHERE dataInativo IS NULL ORDER BY id");
+		}catch (Exception e) {
+			e.printStackTrace();
+			JsfUtil.addErrorMessage(TrataException.getMensagem(e));
+		}
+		return null;
+	}
 	
 	public void handleFileUpload(FileUploadEvent event) {
 		selecionado.setImagem(event.getFile().getContent());

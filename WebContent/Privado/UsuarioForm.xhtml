@@ -20,9 +20,14 @@
 
 <h:body>
 
-	<p:panel id="consultar" visible="#{!usuarioBean.editando}">
-		<h:form>
+	<h1>
+		<h:outputText value="Usuário"></h:outputText>
+	</h1>
 
+	<p:panel id="consultar" visible="#{!usuarioBean.editando}">
+		
+		<h:form>
+		
 			<p:commandButton value="Incluir" ajax="true"
 				update="consultar editar" icon="fa fa-plus"
 				action="#{usuarioBean.incluir}"></p:commandButton>
@@ -36,17 +41,19 @@
 				update="consultar editar" icon="fa fa-remove"
 				disabled="#{usuarioBean.selecionado == null}"
 				action="#{usuarioBean.excluir}">
-				<p:confirm header="Confirma��o" message="Confirma a exclus�o?"
+				<p:confirm header="Confirmação" message="Confirma a exclusão?"
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
 
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
 				responsive="true" width="350">
-				<p:commandButton value="N�o" type="button"
+				<p:commandButton value="Não" type="button"
 					styleClass="ui-confirmdialog-no ui-button-flat" />
 				<p:commandButton value="Sim" type="button"
 					styleClass="ui-confirmdialog-yes" />
 			</p:confirmDialog>
+			
+			<p:growl id="msg"></p:growl>
 
 			<p:dataTable var="u" value="#{usuarioBean.lista}" rows="10"
 				paginator="true"
@@ -72,7 +79,7 @@
 				<p:column headerText="Data de Inativação" sortBy="#{u.dataInativo}"
 					filterBy="#{u.dataInativo}" filterMatchMode="exact">
 					<h:outputText value="#{u.dataInativo}" > 
-            			<f:convertDateTime pattern="dd/MM/yyyy HH:mm"></f:convertDateTime>
+            			<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Sao_Paulo"></f:convertDateTime>
             		</h:outputText>
 				</p:column>
 
@@ -105,7 +112,7 @@
 				<p:password id="senha2" value="#{usuarioBean.selecionado.senha}"
 					required="true" />
 	
-				<p:outputLabel value="Tipo De Documento"></p:outputLabel>
+				<p:outputLabel value="Ativo"></p:outputLabel>
 				<p:selectOneButton value="#{usuarioBean.ativo}">
 					<f:selectItem itemLabel="Ativo" itemValue="true" />
 					<f:selectItem itemLabel="Inativo" itemValue="false" />

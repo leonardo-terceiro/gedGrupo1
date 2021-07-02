@@ -66,19 +66,19 @@ ORDER BY a.id ASC]]>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement style="Column header" x="0" y="19" width="138" height="15" uuid="6127584c-0f4f-463e-b7ab-d728714f4594">
+				<reportElement style="Column header" x="0" y="19" width="40" height="15" uuid="6127584c-0f4f-463e-b7ab-d728714f4594">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac16d4a8-d958-423d-af0c-30a012a8052f"/>
 				</reportElement>
 				<text><![CDATA[id]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="138" y="19" width="138" height="15" uuid="e6361427-2fed-458d-9ea4-e0710cea5ca9">
+				<reportElement style="Column header" x="40" y="19" width="180" height="15" uuid="e6361427-2fed-458d-9ea4-e0710cea5ca9">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e28983f-72f8-46ac-b508-d103efb4c6bd"/>
 				</reportElement>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="276" y="19" width="138" height="15" uuid="fcfd4d99-dfc7-4c03-b05a-c87c7881526a">
+				<reportElement style="Column header" x="220" y="19" width="194" height="15" uuid="fcfd4d99-dfc7-4c03-b05a-c87c7881526a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="26dc65fb-a63c-417d-bd98-341b5020f65f"/>
 				</reportElement>
 				<text><![CDATA[Função]]></text>
@@ -100,19 +100,19 @@ ORDER BY a.id ASC]]>
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement style="Detail" x="0" y="0" width="138" height="15" uuid="ee4c1987-3dc3-4e7e-b644-2f59ce560ed8">
+				<reportElement style="Detail" x="0" y="0" width="40" height="15" uuid="ee4c1987-3dc3-4e7e-b644-2f59ce560ed8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac16d4a8-d958-423d-af0c-30a012a8052f"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="138" y="0" width="138" height="15" uuid="fcaab6e2-95eb-42ce-a987-d278a1eab2cf">
+				<reportElement style="Detail" x="40" y="0" width="180" height="15" uuid="fcaab6e2-95eb-42ce-a987-d278a1eab2cf">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e28983f-72f8-46ac-b508-d103efb4c6bd"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="276" y="0" width="138" height="15" uuid="f8d75a9b-7a25-4ba9-9ce8-d1958ad13841">
+				<reportElement style="Detail" x="220" y="0" width="194" height="15" uuid="f8d75a9b-7a25-4ba9-9ce8-d1958ad13841">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="26dc65fb-a63c-417d-bd98-341b5020f65f"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{funcao}]]></textFieldExpression>

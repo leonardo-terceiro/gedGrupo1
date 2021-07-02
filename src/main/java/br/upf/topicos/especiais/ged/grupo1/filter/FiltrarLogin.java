@@ -1,4 +1,4 @@
-package br.upf.topicos.especiais.ged.grupo1.filters;
+package br.upf.topicos.especiais.ged.grupo1.filter;
 
 import java.io.IOException;
 

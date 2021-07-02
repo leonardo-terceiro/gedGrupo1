@@ -19,6 +19,10 @@
 </h:head>
 
 <h:body>
+	
+	<h1>
+		<h:outputText value="Participações"></h:outputText>
+	</h1>
 
 	<p:panel id="consultar" visible="#{!participacaoBean.editando}">
 		<h:form>
@@ -36,7 +40,7 @@
 				update="consultar editar" icon="fa fa-remove"
 				disabled="#{participacaoBean.selecionado == null}"
 				action="#{participacaoBean.excluir}">
-				<p:confirm header="Confirma��o" message="Confirma a exclus�o?"
+				<p:confirm header="Confirmação" message="Confirma a exclusão?"
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
 			
@@ -46,11 +50,13 @@
 
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
 				responsive="true" width="350">
-				<p:commandButton value="N�o" type="button"
+				<p:commandButton value="Não" type="button"
 					styleClass="ui-confirmdialog-no ui-button-flat" />
 				<p:commandButton value="Sim" type="button"
 					styleClass="ui-confirmdialog-yes" />
 			</p:confirmDialog>
+
+			<p:growl id="msg"></p:growl>
 
 			<p:dataTable var="p" value="#{participacaoBean.lista}" rows="10"
 				paginator="true"
@@ -95,14 +101,14 @@
 				
 				<p:column headerText="Enviar Email" >
 					<p:commandButton ajax="false" value="Enviar Email" disabled="#{participacaoBean.selecionado == null || p.arquivo == null || participacaoBean.selecionado.arquivo == null || participacaoBean.selecionado.id != p.id}"
-					 icon="pi pi-file-pdf" action="#{participacaoBean.enviarEmail()}">
+					 icon="fa fa-send" action="#{participacaoBean.enviarEmail()}">
 					</p:commandButton>
 				</p:column>
 				
 				<p:column headerText="Download File">
 					<p:commandButton value="Download" disabled="#{participacaoBean.selecionado == null || p.arquivo == null || participacaoBean.selecionado.arquivo == null || participacaoBean.selecionado.id != p.id}" 
 					ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);"
-                         icon="pi pi-arrow-down" styleClass="p-mr-2">
+                         icon="fa fa-download" styleClass="p-mr-2">
             			<p:fileDownload value="#{participacaoBean.downloadFile()}"/>
         			</p:commandButton>
 				</p:column>
@@ -131,9 +137,10 @@
 				
 				<p:outputLabel value="Modalidade De Subevento" for="itModalidadeSubEvento"></p:outputLabel>
 				<p:autoComplete id="itModalidadeSubEvento" style="width:600px"
-								dropdown="true" multiple="false" forceSelection="true"
+								dropdown="true" multiple="false" forceSelection="true" 
 								var="m" itemLabel="#{m.subEvento.evento.titulo} - #{m.subEvento.titulo} - #{m.modalidade.descricao}" itemValue="#{m}"
 								value="#{participacaoBean.selecionado.modalidadeSubEvento}"
+								placeholder="Sub Evento"
 								converter="modalidadeSubEventoConverter"
 								completeMethod="#{participacaoBean.carregarModalidadesSubEvento}"></p:autoComplete>
 
@@ -143,7 +150,7 @@
 				<p:outputLabel value="Arquivo"></p:outputLabel>
 				<p:fileUpload listener="#{participacaoBean.handleFileUpload}" mode="advanced"
 							dragDropSupport="true" sizeLimit="1000000" fileLimit="1"
-							validateContentType="true" accept=".pdf"/>
+							validateContentType="true" accept=".pdf" />
 
 				<p:commandButton value="Salvar" ajax="true" icon="fa fa-save"
 					update="consultar editar" action="#{participacaoBean.salvar}"></p:commandButton>

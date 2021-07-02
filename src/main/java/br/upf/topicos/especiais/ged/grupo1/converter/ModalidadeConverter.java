@@ -9,7 +9,7 @@ import javax.faces.convert.FacesConverter;
 import javax.persistence.EntityManager;
 
 import br.upf.topicos.especiais.ged.grupo1.entity.ModalidadeEntity;
-import br.upf.topicos.especiais.ged.grupo1.utils.JpaUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.JpaUtil;
 
 @FacesConverter(value = "modalidadeConverter")
 public class ModalidadeConverter implements Converter<ModalidadeEntity>{

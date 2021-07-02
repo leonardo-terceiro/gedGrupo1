@@ -73,7 +73,7 @@ public class SubEventoEntity implements Serializable{
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<AssinaEntity> assina;
 	
-	@NotNull(message = "evento é requerido!")
+	@NotNull(message = "Evento é requerido!")
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "evento_id")
 	private EventoEntity evento;

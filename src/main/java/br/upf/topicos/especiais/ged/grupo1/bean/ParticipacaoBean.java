@@ -17,12 +17,12 @@ import org.primefaces.model.StreamedContent;
 import br.upf.topicos.especiais.ged.grupo1.entity.ModalidadeSubEventoEntity;
 import br.upf.topicos.especiais.ged.grupo1.entity.ParticipacaoEntity;
 import br.upf.topicos.especiais.ged.grupo1.entity.PessoaEntity;
-import br.upf.topicos.especiais.ged.grupo1.utils.GenericDao;
-import br.upf.topicos.especiais.ged.grupo1.utils.JpaUtil;
-import br.upf.topicos.especiais.ged.grupo1.utils.JsfUtil;
-import br.upf.topicos.especiais.ged.grupo1.utils.MailSenderUtil;
-import br.upf.topicos.especiais.ged.grupo1.utils.RelatorioUtil;
-import br.upf.topicos.especiais.ged.grupo1.utils.TrataException;
+import br.upf.topicos.especiais.ged.grupo1.util.GenericDao;
+import br.upf.topicos.especiais.ged.grupo1.util.JpaUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.JsfUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.MailSenderUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.RelatorioUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.TrataException;
 import lombok.Data;
 
 @Data

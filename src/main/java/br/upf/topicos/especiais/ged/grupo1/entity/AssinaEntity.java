@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -40,10 +41,11 @@ public class AssinaEntity implements Serializable{
 	@Column(name = "nome")
 	private String nome;
 	
-	@NotEmpty(message = "a funcao deve ser informada!")
+	@NotEmpty(message = "A função deve ser informada!")
 	@Column(name = "funcao")
 	private String funcao;
 	
+	@NotNull(message = "A imagem é requerida!")
 	@Lob
 	@Column(name = "imagem")
 	private byte[] imagem;

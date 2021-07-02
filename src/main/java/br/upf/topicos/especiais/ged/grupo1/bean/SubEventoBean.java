@@ -14,11 +14,11 @@ import org.primefaces.model.StreamedContent;
 import br.upf.topicos.especiais.ged.grupo1.entity.EventoEntity;
 import br.upf.topicos.especiais.ged.grupo1.entity.SubEventoEntity;
 import br.upf.topicos.especiais.ged.grupo1.entity.TipoEventoEntity;
-import br.upf.topicos.especiais.ged.grupo1.utils.GenericDao;
-import br.upf.topicos.especiais.ged.grupo1.utils.JpaUtil;
-import br.upf.topicos.especiais.ged.grupo1.utils.JsfUtil;
-import br.upf.topicos.especiais.ged.grupo1.utils.RelatorioUtil;
-import br.upf.topicos.especiais.ged.grupo1.utils.TrataException;
+import br.upf.topicos.especiais.ged.grupo1.util.GenericDao;
+import br.upf.topicos.especiais.ged.grupo1.util.JpaUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.JsfUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.RelatorioUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.TrataException;
 import lombok.Data;
 
 @Data
@@ -32,6 +32,7 @@ public class SubEventoBean implements Serializable{
 	private List<SubEventoEntity> lista;
 	private Boolean editando;
 	private GenericDao<SubEventoEntity> dao = new GenericDao<SubEventoEntity>();
+	private GenericDao<EventoEntity> eventoDao = new GenericDao<EventoEntity>();
 	
 	public SubEventoBean() {
 		super();
@@ -63,10 +64,28 @@ public class SubEventoBean implements Serializable{
 	public void salvar() {
 		try {
 			System.out.println("SubEventoBean - salvar() - salvando -> " + selecionado);
+			atualizarEventoHoras();
 			setSelecionado( dao.merge(selecionado) );
 			JsfUtil.addSuccessMessage("Salvo com sucesso!");
 			carregarLista();
 			setEditando(false);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JsfUtil.addErrorMessage(TrataException.getMensagem(e));
+		}
+	}
+	
+	public void atualizarEventoHoras() {
+		try {
+			Double horas = selecionado.getEvento().getTotalHoras() + selecionado.getTotalHoras();
+			System.out.println("SubEventoBean - atualizarEventoHoras() - salvando -> " + horas + " horas no evento " + selecionado.getEvento().getId());
+			EntityManager em = JpaUtil.getInstance().getEntityManager();
+			em.getTransaction().begin();
+			Query qry = em.createQuery("UPDATE EventoEntity e SET e.totalHoras = :horas WHERE e.id = :id");
+			qry.setParameter("horas", horas);
+			qry.setParameter("id", selecionado.getEvento().getId());
+			qry.executeUpdate();
+			em.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			JsfUtil.addErrorMessage(TrataException.getMensagem(e));

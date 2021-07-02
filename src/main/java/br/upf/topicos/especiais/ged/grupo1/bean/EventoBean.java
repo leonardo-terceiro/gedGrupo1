@@ -15,10 +15,10 @@ import br.upf.topicos.especiais.ged.grupo1.entity.EventoEntity;
 import br.upf.topicos.especiais.ged.grupo1.entity.ModalidadeSubEventoEntity;
 import br.upf.topicos.especiais.ged.grupo1.entity.ParticipacaoEntity;
 import br.upf.topicos.especiais.ged.grupo1.entity.SubEventoEntity;
-import br.upf.topicos.especiais.ged.grupo1.utils.GenericDao;
-import br.upf.topicos.especiais.ged.grupo1.utils.JsfUtil;
-import br.upf.topicos.especiais.ged.grupo1.utils.RelatorioUtil;
-import br.upf.topicos.especiais.ged.grupo1.utils.TrataException;
+import br.upf.topicos.especiais.ged.grupo1.util.GenericDao;
+import br.upf.topicos.especiais.ged.grupo1.util.JsfUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.RelatorioUtil;
+import br.upf.topicos.especiais.ged.grupo1.util.TrataException;
 import lombok.Data;
 
 @Data
@@ -41,6 +41,7 @@ public class EventoBean implements Serializable{
 	
 	public void incluir() {
 		selecionado = new EventoEntity();
+		selecionado.setTotalHoras(0.0);
 		setEditando(true);
 	}
 

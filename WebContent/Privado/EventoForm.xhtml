@@ -49,6 +49,10 @@
 
 <h:body>
 
+	<h1>
+		<h:outputText value="Eventos"></h:outputText>
+	</h1>
+
 	<p:panel id="consultar" visible="#{!eventoBean.editando}">
 		<h:form>
 
@@ -65,7 +69,7 @@
 				update="consultar editar" icon="fa fa-remove"
 				disabled="#{eventoBean.selecionado == null}"
 				action="#{eventoBean.excluir}">
-				<p:confirm header="Confirma��o" message="Confirma a exclus�o?"
+				<p:confirm header="Confirmação" message="Confirma a exclusão?"
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
 
@@ -75,11 +79,13 @@
 
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
 				responsive="true" width="350">
-				<p:commandButton value="N�o" type="button"
+				<p:commandButton value="Não" type="button"
 					styleClass="ui-confirmdialog-no ui-button-flat" />
 				<p:commandButton value="Sim" type="button"
 					styleClass="ui-confirmdialog-yes" />
 			</p:confirmDialog>
+
+			<p:growl id="msg"></p:growl>
 
 			<p:dataTable var="e" value="#{eventoBean.lista}" rows="10"
 				paginator="true"
@@ -156,9 +162,6 @@
 
 				<p:outputLabel value="Data de Termino"></p:outputLabel>
 				<p:calendar id="buttonDataTermino" value="#{eventoBean.selecionado.dataTermino}" showOn="button" mindate="#{eventoBean.selecionado.dataInicio}" />
-				
-				<p:outputLabel value="Total de Horas"></p:outputLabel>
-				<p:inputNumber value="#{eventoBean.selecionado.totalHoras}"></p:inputNumber>
 
 				<p:commandButton value="Salvar" ajax="true" icon="fa fa-save"
 					update="consultar editar" action="#{eventoBean.salvar}"></p:commandButton>

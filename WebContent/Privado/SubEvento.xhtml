@@ -10,32 +10,32 @@
 		name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
 
 <script type="text/javascript">
-     PrimeFaces.locales ['pt_Br'] = { 
+    PrimeFaces.locales ['pt_BR'] = {
         closeText: 'Fechar',
-         prevText: 'Voltar',
-         nextText: 'Avançar',
-         monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        prevText: 'Voltar',
+        nextText: 'Avançar',
+        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
         monthNamesShort: ['Jan', 'Feb', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-         dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
+        dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
         dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-         dayNamesMin: ['D', 'S', 'T', 'Q ', 'Q', 'S ', 'S'],
-         weekHeader: 'Semana',
-         firstDay: 1,
-         isRTL: false,
-         showMonthAfterYear: false,
+        dayNamesMin: ['D', 'S', 'T', 'Q ', 'Q', 'S ', 'S'],
+        weekHeader: 'Semana',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
         yearSuffix: '',
-         timeOnlyTitle: 'Horario',
-         timeText: 'Horario',
-         hourText: 'Hora',
+        timeOnlyTitle: 'Horario',
+        timeText: 'Horario',
+        hourText: 'Hora',
         minuteText: 'Minuto',
-       secondText: 'Segundo',
-         currentText: 'Data atual',
+        secondText: 'Segundo',
+        currentText: 'Data atual',
         ampm: false,
-         month: 'Mês',
+        month: 'Mês',
         week: 'Semana',
-         day: 'Dia',
-         allDayText: 'Dia inteiro'
-     }; 
+        day: 'Dia',
+        allDayText: 'Dia inteiro'
+    };
 </script>
 
 <style>
@@ -48,6 +48,10 @@
 </h:head>
 
 <h:body>
+
+	<h1>
+		<h:outputText value="Sub Evento"></h:outputText>
+	</h1>
 
 	<p:panel id="consultar" visible="#{!subEventoBean.editando}">
 		<h:form>
@@ -65,7 +69,7 @@
 				update="consultar editar" icon="fa fa-remove"
 				disabled="#{subEventoBean.selecionado.assina == null}"
 				action="#{subEventoBean.excluir}">
-				<p:confirm header="Confirma��o" message="Confirma a exclus�o?"
+				<p:confirm header="Confirmação" message="Confirma a exclusão?"
 					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
 			
@@ -75,11 +79,13 @@
 
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
 				responsive="true" width="350">
-				<p:commandButton value="N�o" type="button"
+				<p:commandButton value="Não" type="button"
 					styleClass="ui-confirmdialog-no ui-button-flat" />
 				<p:commandButton value="Sim" type="button"
 					styleClass="ui-confirmdialog-yes" />
 			</p:confirmDialog>
+			
+			<p:growl id="msg"></p:growl>
 
 			<p:dataTable var="s" value="#{subEventoBean.lista}" rows="10"
 				paginator="true"
@@ -155,10 +161,10 @@
 				<p:inputText value="#{subEventoBean.selecionado.descricao}"></p:inputText>
 	
 				<p:outputLabel value="Data de Inicio"></p:outputLabel>
-				<p:calendar id="buttonDataInicio" value="#{subEventoBean.selecionado.dataHoraInicio}" locale="pt" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"/>
+				<p:calendar id="buttonDataInicio" value="#{subEventoBean.selecionado.dataHoraInicio}" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"/>
 		
 				<p:outputLabel value="Data de Termino"></p:outputLabel>
-				<p:calendar id="buttonDataFim" value="#{subEventoBean.selecionado.dataHoraTermino}" locale="pt" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"/>
+				<p:calendar id="buttonDataFim" value="#{subEventoBean.selecionado.dataHoraTermino}" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"/>
 				
 				<p:outputLabel value="Total de Horas"></p:outputLabel>
 				<p:inputNumber value="#{subEventoBean.selecionado.totalHoras}"></p:inputNumber>
@@ -184,7 +190,7 @@
                             converter="#{assinaConverter}"
                             var="c" filter="true" filterMatchMode="contains" showCheckbox="true" styleClass="manymenu-advanced">
                     <f:attribute name="collectionType" value="java.util.ArrayList"></f:attribute>
-		            <f:selectItems value="#{assinaBean.lista}" var="a" itemLabel="#{a.nome}" itemValue="#{a}"/>
+		            <f:selectItems value="#{assinaBean.carregarAssinaturasDisponiveis()}" var="a" itemLabel="#{a.nome}" itemValue="#{a}"/>
 		            <p:column>
 		                <h:outputText value="#{c.nome}"/>
 		            </p:column>

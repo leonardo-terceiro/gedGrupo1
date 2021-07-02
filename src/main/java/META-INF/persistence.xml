@@ -17,6 +17,7 @@
 			<property name="javax.persistence.jdbc.password" value="masterkey"/>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 			<property name="javax.persistence.schema-generation.database.action" value="create"/>
+			<property name="hibernate.jdbc.time_zone" value="America/Sao_Paulo"/>
 		</properties>
 	</persistence-unit>
 </persistence>

@@ -59,10 +59,11 @@ public class PessoaEntity implements Serializable {
 	private String documento;
 
 	@Column(name = "tipoDocumento")
-	@NotBlank(message = "O tipo de documento deve ser informado")
+	@NotBlank(message = "O tipo de documento deve ser informado!")
 	private String tipoDocumento;
 
 	@Column(name = "nacionalidade")
+	@NotBlank(message = "A nacionalidade deve ser informada!")
 	private String nacionalidade;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "pessoa", fetch = FetchType.EAGER)
