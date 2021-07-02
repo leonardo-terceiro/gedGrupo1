@@ -138,7 +138,7 @@ ORDER BY e.id ASC]]>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/mm/yyyy">
+			<textField pattern="dd/MM/yyyy">
 				<reportElement style="Detail" x="30" y="0" width="87" height="15" uuid="f6435065-c084-4e78-beb9-f1e60459c444">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa10c4ef-86e7-433b-baac-af1fb8d5408f"/>
 				</reportElement>

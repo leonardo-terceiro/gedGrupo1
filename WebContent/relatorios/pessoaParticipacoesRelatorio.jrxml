@@ -10,7 +10,7 @@
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
-	<parameter name="pessoaId" class="java.lang.String"/>
+	<parameter name="pessoaId" class="java.lang.Integer"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT p.id, pe.nome, pe.documento, e.titulo AS Evento, s.titulo AS SubEvento, m.descricao AS Modalidade, p.horas_participou
 FROM participacao p INNER JOIN pessoa pe on p.pessoa_id = pe.id

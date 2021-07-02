@@ -94,6 +94,7 @@ public class SubEventoBean implements Serializable{
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private Double getHoras() {
 
 		try {
