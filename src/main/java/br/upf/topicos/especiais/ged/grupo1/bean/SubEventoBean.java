@@ -64,9 +64,9 @@ public class SubEventoBean implements Serializable{
 	public void salvar() {
 		try {
 			System.out.println("SubEventoBean - salvar() - salvando -> " + selecionado);
-			atualizarEventoHoras();
 			setSelecionado( dao.merge(selecionado) );
 			JsfUtil.addSuccessMessage("Salvo com sucesso!");
+			atualizarEventoHoras();
 			carregarLista();
 			setEditando(false);
 		} catch (Exception e) {
@@ -77,7 +77,9 @@ public class SubEventoBean implements Serializable{
 	
 	public void atualizarEventoHoras() {
 		try {
-			Double horas = selecionado.getEvento().getTotalHoras() + selecionado.getTotalHoras();
+			
+			Double horas = getHoras();
+			System.out.println("Horas: "+ horas);
 			System.out.println("SubEventoBean - atualizarEventoHoras() - salvando -> " + horas + " horas no evento " + selecionado.getEvento().getId());
 			EntityManager em = JpaUtil.getInstance().getEntityManager();
 			em.getTransaction().begin();
@@ -92,6 +94,43 @@ public class SubEventoBean implements Serializable{
 		}
 	}
 	
+	private Double getHoras() {
+
+		try {
+			EntityManager em = JpaUtil.getInstance().getEntityManager();
+			em.getTransaction().begin();
+			Query qry = em.createQuery(" from SubEventoEntity where evento_id = :id");
+			qry.setParameter("id", selecionado.getEvento().getId());
+			List<SubEventoEntity> results = qry.getResultList();
+			Double horas = results.stream().mapToDouble(SubEventoEntity::getTotalHoras).sum();
+			return horas;
+		}catch (Exception e) {
+			e.printStackTrace();
+			JsfUtil.addErrorMessage(TrataException.getMensagem(e));
+		}
+		
+		return 0D;
+	}
+
+	public void diminuirEventoHoras() {
+		try {
+			
+			Double horas = getHoras();
+			System.out.println("SubEventoBean - atualizarEventoHoras() - salvando -> " + horas + " horas no evento " + selecionado.getEvento().getId());
+			EntityManager em = JpaUtil.getInstance().getEntityManager();
+			em.getTransaction().begin();
+			Query qry = em.createQuery("UPDATE EventoEntity e SET e.totalHoras = :horas WHERE e.id = :id");
+			qry.setParameter("horas", horas);
+			qry.setParameter("id", selecionado.getEvento().getId());
+			qry.executeUpdate();
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			JsfUtil.addErrorMessage(TrataException.getMensagem(e));
+		}
+	}
+	
+	
 	public void excluir() {
 		System.out.println("SubEventoBean - excluir() - " + selecionado);
 		try {
@@ -103,6 +142,7 @@ public class SubEventoBean implements Serializable{
 			qry.executeUpdate();
 			em.getTransaction().commit();
 			JsfUtil.addSuccessMessage("Excluído com sucesso!");
+			diminuirEventoHoras();
 			setSelecionado(new SubEventoEntity());
 			carregarLista();
 		} catch (Exception e) {
